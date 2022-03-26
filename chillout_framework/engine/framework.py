@@ -1,6 +1,5 @@
 """main module of framework"""
 import inspect
-
 from controllers import Controllers
 import views
 from views import NotFound404
@@ -42,6 +41,7 @@ class ChillOutFramework:
 
         # get code and content from view
         code, content = view(self.requests)
+
 
         start_response(code, [('Content-Type', 'text/html')])
         return [content.encode('utf-8')]

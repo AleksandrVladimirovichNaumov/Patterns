@@ -1,4 +1,4 @@
-"""module for controllers"""
+"""module with controllers"""
 from datetime import date
 
 

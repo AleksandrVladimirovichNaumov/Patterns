@@ -1,7 +1,11 @@
+"""Module with all views"""
 from engine.templater import Templater
 
 
 class Index(Templater):
+    """
+    view for index page
+    """
     def __init__(self, **kwargs):
         self.template = 'index.html'
         self.folder = 'templates'
@@ -9,11 +13,13 @@ class Index(Templater):
         super().__init__(self.template, self.folder, **kwargs)
 
     def __call__(self, request):
-        print(request)
-        return '200 OK', self.render(data=request.get('data', None))
+        return '200 OK', self.render(data=request.get('key', None))
 
 
 class About(Templater):
+    """
+    view for about page
+    """
     def __init__(self, **kwargs):
         self.template = 'index.html'
         self.folder = 'templates'
@@ -24,9 +30,10 @@ class About(Templater):
         return '200 OK', 'about'
 
 
-
 class NotFound404:
-
+    """
+    view for 404 page
+    """
     def __init__(self):
         self.template = 'index.html'
         self.folder = 'templates'
