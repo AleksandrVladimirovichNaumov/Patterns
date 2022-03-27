@@ -13,4 +13,4 @@ class Controllers:
 
     @staticmethod
     def other_front(request):
-        request['key'] = 'key'
+        request['topics'] = ('Topic 1', 'Topic 2', 'Topic 3', 'Topic 4', 'Topic 5')

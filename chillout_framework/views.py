@@ -13,7 +13,8 @@ class Index(Templater):
         super().__init__(self.template, self.folder, **kwargs)
 
     def __call__(self, request):
-        return '200 OK', self.render(data=request.get('key', None))
+        print(request)
+        return '200 OK', self.render(response=request.get('topics', None))
 
 
 class About(Templater):
