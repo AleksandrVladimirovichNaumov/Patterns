@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        @import {{style}};
+    </style>
     <meta charset="UTF-8">
     <title>ChillOut</title>
 </head>
 <body>
 
-ChillOut server started
+<div class="parent">
+    <div class="header">header: NewWords</div>
+
+    <div class="menu">
+        <div class="wrap">
+            {%for topic in response%}
+
+                <button class="button">
+                    {{topic}}
+                </button>
+
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <div class="app">
+        <div class="wrap_app">game window</div>
+    </div>
+
+    <div class="mobile">
+        <div class="wrap">
+
+            <button class="button">
+                android app link
+            </button>
+
+            <button class="button">
+                ios app link
+            </button>
+
+        </div>
+    </div>
+
+    <div class="footer">footer</div>
+</div>
 
 </body>
 </html>

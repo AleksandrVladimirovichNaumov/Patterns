@@ -17,13 +17,14 @@ class ChillOutFramework:
         self.routes = {}
         # dict with all requests
         self.requests = {}
-        # make dict route:view
+        # make dict {route:view}
         # scanning view.py for all classes
         # class = view except Templator (parent of view)
         # checking that name of class is not 'Templater' because it is not a view
         for class_obj in inspect.getmembers(views, predicate=inspect.isclass):
             if not class_obj[0] == 'Templater':
                 self.routes[class_obj[1]().route] = class_obj[1]()
+
 
     def __call__(self, environ, start_response):
         # take path of address
@@ -41,7 +42,5 @@ class ChillOutFramework:
 
         # get code and content from view
         code, content = view(self.requests)
-
-
         start_response(code, [('Content-Type', 'text/html')])
         return [content.encode('utf-8')]
