@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block main_windows %}
+<br>
+<h3>Login to keep your progress</h3> <br>
+<form action="" method="post">
+
+<!--    <label for="email">email:</label>-->
+    <input type="text" id="email" name="email" class="input_app" placeholder="email">
+
+    <br>
+<!--    <label for="password">password:</label>-->
+    <input type="password" id="password" name="password" class="input_app" placeholder="password">
+    <br>
+    <input type="submit" id="login" name="login" class="button_app" value="login">
+    <br>
+    <br>
+    or
+    <br>
+    <br>
+    google account || apple account
+    <br>
+    <br>
+    <br>
+    Do not have an account?
+    <br>
+    <input type="button" class="button_app" value="register" onclick="location.href='/registration/'">
+</form>
+{% endblock %}
+{% block title %}
+NewWords: login
+{% endblock %}

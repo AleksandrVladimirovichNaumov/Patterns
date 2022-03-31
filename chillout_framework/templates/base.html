@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        {{style}}
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<div class="parent">
+    <div class="header">
+        <div class="header_left"></div>
+
+        <div class="header_right">
+<!--            <form action="" method="post">-->
+                <input type="button" id="login" name="login" class="button_header_right" value="login"
+                       onclick="location.href='/login/'">
+                <input type="button" id="login2" name="login" class="button_header_right" value="login"
+                       onclick="location.href='/login/'">
+<!--            </form>-->
+
+
+        </div>
+        <div class="header_center">
+            <H1>NewWords</H1>
+<!--            <div class="header_menu">-->
+                <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                    {%for language in languages%}
+                    <option value="?main_language={{language}}">{{language}}</option>
+                    {%endfor%}
+                </select>
+                <button class="button_header">
+                    < - >
+                </button>
+                <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                    {%for language in languages%}
+                    <option value="?second_language={{language}}">{{language}}</option>
+                    {%endfor%}
+                </select>
+<!--            </div>-->
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="wrap">
+            {%for topic in response%}
+            <form>
+                <input type="button" class="button" value="{{topic}}" onclick="location.href='?topic={{topic}}'">
+
+
+            </form>
+
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <div class="app">
+        <div class="wrap_app">
+            {% block main_windows %} {% endblock %}
+        </div>
+    </div>
+
+    <div class="mobile">
+        <div class="wrap_mobile">
+
+            <form>
+                <input type="button" class="button" value="android app link" onclick="location.href='/mobile_application/?os=android'">
+
+
+            </form>
+
+            <form>
+                <input type="button" class="button" value="ios app link" onclick="location.href='/mobile_application/?os=ios'">
+
+
+            </form>
+
+
+            <div class="ad">ad</div>
+
+
+        </div>
+    </div>
+
+    <div class="footer">footer</div>
+</div>
+
+</body>
+</html>
