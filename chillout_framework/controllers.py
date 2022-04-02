@@ -13,7 +13,27 @@ class Controllers:
         :param request:
         :return: -
         """
-        request['topics'] = ('Topic 1', 'Topic 2', 'Topic 3', 'Topic 4', 'Topic 5')
+        request['topics'] = [['Topic 1', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 2', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 3', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 4', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 5', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 1', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 2', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 3', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 4', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 5', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']]
+                             ]
 
     @staticmethod
     def style(request):

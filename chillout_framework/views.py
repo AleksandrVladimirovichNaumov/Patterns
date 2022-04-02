@@ -15,7 +15,7 @@ class Index(Templater):
 
     def __call__(self, request):
         return '200 OK', self.render(
-            response=request.get('topics', None),
+            topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None)
         )
@@ -34,7 +34,7 @@ class MobileApplication(Templater):
 
     def __call__(self, request):
         return '200 OK', self.render(
-            response=request.get('topics', None),
+            topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None)
         )
@@ -66,7 +66,7 @@ class Login(Templater):
 
     def __call__(self, request):
         return '404 WHAT', self.render(
-            response=request.get('topics', None),
+            topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None)
         )
@@ -84,7 +84,7 @@ class Registration(Templater):
 
     def __call__(self, request):
         return '404 WHAT', self.render(
-            response=request.get('topics', None),
+            topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None)
         )
