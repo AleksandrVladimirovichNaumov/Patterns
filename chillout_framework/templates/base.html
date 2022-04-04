@@ -6,51 +6,52 @@
     </style>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+
+
     <script>
+
         function showSubTopic(topic, subTopicQuantity, topicQuantity) {
             try {
                 // get pressed button
                 let TopicButton = document.getElementById('topicButton_' + topic);
                 console.log(TopicButton.id);
+                // in case if ariapressed is undefined
+
 
                 for (let topicNumber = 0; topicNumber < topicQuantity; topicNumber++) {
                     // make all topic buttons white and unpressed
                     let anyButton = document.getElementById('topicButton_' + topicNumber);
-                    console.log(anyButton.id);
-
-                    anyButton.style.backgroundColor = "#ffffff";
-                    anyButton.style.color = "dimgray";
-                    anyButton.ariaPressed = 'false';
+                    // not to change color of current  topic button
+                    if (anyButton.id !== TopicButton.id){
+                        anyButton.style.backgroundColor = "#ffffff";
+                        anyButton.style.color = "dimgray";
+                        anyButton.ariaPressed = 'false';
+                    }
                     // hide all subtopic buttons if visible
                     for (let i = 0; i < subTopicQuantity; i++) {
                         let subTopicButton = document.getElementById('subTopicButton_' + topicNumber + '_' + i);
-                        console.log(subTopicButton.id);
                         subTopicButton.style.display = 'none';
                     }
 
                 }
-                // show subtopics of active button and put it in status pressed
-                for (let i = 0; i < subTopicQuantity; i++) {
+                console.log(TopicButton.ariaPressed);
+                // show subtopics of active topic (if subtopicts are not already shown)button and put it in status pressed
+                if (TopicButton.ariaPressed === 'true') {
+                    TopicButton.ariaPressed = 'false';
+                }else{
+                    for (let i = 0; i < subTopicQuantity; i++) {
 
-                    let subTopicButton = document.getElementById('subTopicButton_' + topic + '_' + i);
-                    if (TopicButton.ariaPressed === 'false') {
-                        TopicButton.style.backgroundColor = "#7dd0fa";
-                        TopicButton.style.color = "#ffffff";
-
-                        subTopicButton.style.display = 'unset';
-                    } else {
-
-                        subTopicButton.style.display = 'none';
-
-
+                        let subTopicButton = document.getElementById('subTopicButton_' + topic + '_' + i);
+                        if (TopicButton.ariaPressed !== 'false'&& TopicButton.ariaPressed !== 'true' || TopicButton.ariaPressed === 'false') {
+                            TopicButton.style.backgroundColor = "#7dd0fa";
+                            TopicButton.style.color = "#ffffff";
+                            subTopicButton.style.display = 'unset';
+                        } else {
+                            subTopicButton.style.display = 'none';
+                        }
                     }
-
+                    TopicButton.ariaPressed = 'true';
                 }
-
-
-                TopicButton.ariaPressed = 'true';
-
-
             } catch (error) {
                 console.error(error)
             }
@@ -123,7 +124,7 @@
             {% set subtopic_number = loop.index0 %}
             <input id="subTopicButton_{{topic_number}}_{{subtopic_number}}" type="button" class="button_subtopic"
                    value="{{subtopic}}"
-                   onclick="location.href='/app/?topic={{topic_number}}&subtopic={{subtopic_number}}'">
+                   onclick="location.href='/application/?topic={{topic_number}}&subtopic={{subtopic_number}}'">
             {% endfor %}
 
 
@@ -167,6 +168,6 @@
 
     <!--    <div class="footer">footer</div>-->
 </div>
-
+{% block script %}{% endblock %}
 </body>
 </html>

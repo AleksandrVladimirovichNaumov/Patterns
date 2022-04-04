@@ -88,3 +88,22 @@ class Registration(Templater):
             style=request.get('style', None),
             languages=request.get('languages', None)
         )
+
+
+class App(Templater):
+    """
+    view application page
+    """
+
+    def __init__(self):
+        self.template = 'app.html'
+        self.folder = 'templates'
+        self.route = '/application/'
+
+    def __call__(self, request):
+        return '404 WHAT', self.render(
+            topics=request.get('topics', None),
+            style=request.get('style', None),
+            languages=request.get('languages', None),
+            words=request.get('words', None)
+        )

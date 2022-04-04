@@ -13,12 +13,7 @@ class Controllers:
         :param request:
         :return: -
         """
-        request['topics'] = [['Topic 1', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 2', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 3', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 4', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 5', False, ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6', 'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 1', False,
+        request['topics'] = [['Topic 1', False,
                               ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
                                'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
                              ['Topic 2', False,
@@ -31,6 +26,21 @@ class Controllers:
                               ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
                                'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
                              ['Topic 5', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 6', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 7', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 8', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 9', False,
+                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
+                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
+                             ['Topic 10', False,
                               ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
                                'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']]
                              ]
@@ -54,3 +64,15 @@ class Controllers:
         :return:
         """
         request['languages'] = ['language_1', 'language_2', 'language_3']
+
+    @staticmethod
+    def words(request):
+        """
+        controller to provide list of languagues
+        :param request:
+        :return:
+        """
+        request['words'] = [
+            ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10'],
+            ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
+            ]
