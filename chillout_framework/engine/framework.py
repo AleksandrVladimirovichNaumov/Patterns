@@ -2,10 +2,11 @@
 import inspect
 from controllers import Controllers
 import views
+from engine.requests import ChillOutRequests
 from views import NotFound404
 
 
-class ChillOutFramework:
+class ChillOutFramework(ChillOutRequests):
     """
     main class to run framework
     """
@@ -43,7 +44,9 @@ class ChillOutFramework:
         view = self.routes[path] if path in self.routes else NotFound404()
 
         # printing get and post if exist
-        self.get_requests(environ)
+        self.get_get_requests(environ)
+        self.get_post_requests(environ)
+
         # find required controller to maintain frontend request
         for controller in self.frontend:
             controller(self.requests)
@@ -52,45 +55,3 @@ class ChillOutFramework:
         code, content = view(self.requests)
         start_response(code, [('Content-Type', 'text/html')])
         return [content.encode('utf-8')]
-
-    @staticmethod
-    def parse_query(query):
-        """
-        parse query from server to dict
-        :param query: query from server
-        :return: dict based on query
-        """
-        dict_obj = {}
-        if query:
-            # parameters = ((item.split('=')) for item in query.split('&'))
-            # dict_obj = {key: value for key, value in parameters}
-            dict_obj = {item.split('=')[0]: item.split('=')[1] for item in query.split('&')}
-        return dict_obj
-
-    def get_requests(self, environ):
-        """
-        get requests from server
-        :param environ:
-        :return: get, post
-        """
-        # getting get request
-        get = self.parse_query(environ["QUERY_STRING"])
-        print(f'get request(s): {get}')
-
-        # getting post request
-        # dict for post
-        post = {}
-        # getting length of post if exist
-        content_length = int(environ.get('CONTENT_LENGTH')) if environ.get('CONTENT_LENGTH') else 0
-
-        # read bytes from post request
-        post_bytes = environ.get('wsgi.input').read(content_length) if content_length > 0 else b''
-
-        # bytes to dict for post
-        if post_bytes:
-            # decoding
-            post_str = post_bytes.decode(encoding='utf-8')
-            # put in dict
-            post = self.parse_query(post_str)
-        print(f'post request(s): {post}')
-        return get, post
