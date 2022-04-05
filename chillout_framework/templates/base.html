@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        {{style}}
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+
+    <script>
+
+        function showSubTopic(topic, subTopicQuantity, topicQuantity) {
+            try {
+                // get pressed button
+                let TopicButton = document.getElementById('topicButton_' + topic);
+                console.log(TopicButton.id);
+                // in case if ariapressed is undefined
+
+
+                for (let topicNumber = 0; topicNumber < topicQuantity; topicNumber++) {
+                    // make all topic buttons white and unpressed
+                    let anyButton = document.getElementById('topicButton_' + topicNumber);
+                    // not to change color of current  topic button
+                    if (anyButton.id !== TopicButton.id){
+                        anyButton.style.backgroundColor = "#ffffff";
+                        anyButton.style.color = "dimgray";
+                        anyButton.ariaPressed = 'false';
+                    }
+                    // hide all subtopic buttons if visible
+                    for (let i = 0; i < subTopicQuantity; i++) {
+                        let subTopicButton = document.getElementById('subTopicButton_' + topicNumber + '_' + i);
+                        subTopicButton.style.display = 'none';
+                    }
+
+                }
+                console.log(TopicButton.ariaPressed);
+                // show subtopics of active topic (if subtopicts are not already shown)button and put it in status pressed
+                if (TopicButton.ariaPressed === 'true') {
+                    TopicButton.ariaPressed = 'false';
+                }else{
+                    for (let i = 0; i < subTopicQuantity; i++) {
+
+                        let subTopicButton = document.getElementById('subTopicButton_' + topic + '_' + i);
+                        if (TopicButton.ariaPressed !== 'false'&& TopicButton.ariaPressed !== 'true' || TopicButton.ariaPressed === 'false') {
+                            TopicButton.style.backgroundColor = "#7dd0fa";
+                            TopicButton.style.color = "#ffffff";
+                            subTopicButton.style.display = 'unset';
+                        } else {
+                            subTopicButton.style.display = 'none';
+                        }
+                    }
+                    TopicButton.ariaPressed = 'true';
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        function topicMouseOver(topic) {
+            let TopicButton = document.getElementById('topicButton_' + topic);
+            TopicButton.style.backgroundColor = "#7dd0fa"
+            TopicButton.style.color = "#ffffff"
+        }
+
+        function topicMouseOut(topic) {
+            let TopicButton = document.getElementById('topicButton_' + topic);
+            if (TopicButton.ariaPressed !== 'true') {
+                TopicButton.style.backgroundColor = "#ffffff"
+                TopicButton.style.color = "dimgrey"
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<div class="parent">
+    <div class="header">
+        <div class="header_left"></div>
+
+        <div class="header_right">
+            <!--            <form action="" method="post">-->
+            <input type="button" id="login" name="login" class="button_header_right" value="login"
+                   onclick="location.href='/login/'">
+            <input type="button" id="login2" name="login" class="button_header_right" value="login"
+                   onclick="location.href='/login/'">
+            <!--            </form>-->
+
+
+        </div>
+        <div class="header_center">
+            <H1>NewWords</H1>
+            <!--            <div class="header_menu">-->
+            <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                {%for language in languages%}
+                <option value="?main_language={{language}}">{{language}}</option>
+                {%endfor%}
+            </select>
+            <button class="button_header">
+                < - >
+            </button>
+            <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                {%for language in languages%}
+                <option value="?second_language={{language}}">{{language}}</option>
+                {%endfor%}
+            </select>
+            <!--            </div>-->
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="wrap_menu">
+
+            {%for topic in topics%}
+            {% set topic_number = loop.index0 %}
+            <input id="topicButton_{{topic_number}}" type="button" class="button" value="{{topic[0]}}"
+                   aria-pressed="false"
+                   onclick="showSubTopic('{{topic_number}}', '{{topic[2]|length}}', '{{topics|length}}')"
+                   onmouseover="topicMouseOver('{{topic_number}}')"
+                   onmouseout="topicMouseOut('{{topic_number}}')"
+            >
+            {% for subtopic in topic[2] %}
+            {% set subtopic_number = loop.index0 %}
+            <input id="subTopicButton_{{topic_number}}_{{subtopic_number}}" type="button" class="button_subtopic"
+                   value="{{subtopic}}"
+                   onclick="location.href='/application/?topic={{topic_number}}&subtopic={{subtopic_number}}'">
+            {% endfor %}
+
+
+            {% endfor %}
+
+        </div>
+
+
+    </div>
+
+    <div class="app">
+        <div class="wrap_app">
+            {% block main_windows %} {% endblock %}
+        </div>
+    </div>
+
+    <div class="mobile">
+        <div class="wrap_mobile">
+
+            <form>
+                <input type="button" class="button" value="android app link"
+                       onclick="location.href='/mobile_application/?os=android'">
+
+
+            </form>
+
+            <form>
+                <input type="button" class="button" value="ios app link"
+                       onclick="location.href='/mobile_application/?os=ios'">
+
+
+            </form>
+
+
+            <div class="ad">|<br>|<br>|<br>|<br>|<br>ad<br>|<br>|<br>|<br>|<br>|
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--    <div class="footer">footer</div>-->
+</div>
+{% block script %}{% endblock %}
+</body>
+</html>

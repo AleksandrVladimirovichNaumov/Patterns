@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block script %}
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    let taskWord = '';
+    let mainLangWords = {{words[0] | safe}};
+    console.log(mainLangWords);
+    let secondLangWords = {{words[1] | safe}};
+    console.log(secondLangWords);
+    let wordsToRemember = {{words[1] | safe}};
+    let appStatus = "TextToRemember";
+    let roundNumber = 0;
+
+    function appAction(actionButtonID, wordsQuantity) {
+        let actionButton = document.getElementById(actionButtonID)
+        if (appStatus === "TextToRemember") {
+
+            // set words to remember (list of words which will be decrease by 1 each round)
+
+            // hide table with words to remeber
+            let row = document.getElementById("table_10_words");
+            row.style.display = 'none'
+
+            // show answer buttons
+            for (let i = 0; i < 4; i++) {
+                let button = document.getElementById("button_word_" + (i + 1));
+                button.style.display = 'unset'
+
+            }
+
+
+            // set to application round conditions
+            appRound();
+
+            //show task word
+            let tdTaskWord = document.getElementById("task_word");
+            tdTaskWord.style.display = 'unset'
+
+            // show answer buttons
+            for (let i = 0; i < 4; i++) {
+                let button = document.getElementById("button_word_" + (i + 1));
+                button.style.display = 'unset'
+
+            }
+
+            actionButton.style.display = "none";
+            appStatus = "Next round";
+        } else if (appStatus === "Next round") {
+
+
+        } else if (appStatus === "Result") {
+
+
+        }
+    }
+
+
+    function appRound() {
+        // increase round number
+        roundNumber += 1;
+        // taking task words from array
+        let taskWordIndex = Math.floor(Math.random() * (wordsToRemember.length));
+        console.log(taskWordIndex);
+        taskWord = wordsToRemember[taskWordIndex];
+        let taskTd = document.getElementById("task_word");
+        taskTd.textContent = taskWord
+        console.log(taskWord);
+        // deleting task word from array of words to learn
+        wordsToRemember.splice(taskWordIndex, 1);
+        console.log(wordsToRemember);
+        // index of correct words
+        let answerIndex = secondLangWords.indexOf(taskWord);
+        console.log(answerIndex);
+        // getting correct answer word
+        let answerWord = mainLangWords[answerIndex];
+        console.log(answerWord);
+        // adding correct answer to array of round answers
+        let answers = [];
+        answers.push(answerWord);
+        // temp array to get incorrect answers
+        let tempMainLangWords = mainLangWords;
+        // deleting correct answer
+        tempMainLangWords.splice(answerIndex, 1);
+        // getting 3 random incorrect answers
+        for (let i = 0; i < 3; i++) {
+            taskWordIndex = Math.floor(Math.random() * (tempMainLangWords.length));
+            answers.push(tempMainLangWords[taskWordIndex]);
+            tempMainLangWords.splice(taskWordIndex, 1);
+        }
+        //shuffle answers
+        for (let i = answers.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = answers[i];
+            answers[i] = answers[j];
+            answers[j] = temp;
+        }
+
+        // change buttons text to answer from array
+        for (let i = 0; i < 4; i++) {
+            let button = document.getElementById("button_word_" + (i + 1));
+            button.textContent = answers[i]
+            if (answers[i] === answerWord) {
+                button.name = 'button_1'
+            } else {
+                button.name = 'button_0'
+            }
+
+        }
+
+    }
+
+    // function answer(button_id){
+    //     let answer_button = document.getElementById(button_id)
+    //     if
+    // }
+</script>
+{% endblock %}
+{% block main_windows %}
+<table class="table_app">
+
+    <tr>
+        <td>
+
+            <table class="table_inner_app" id="table_10_words">
+                {% for word in words[0] %}
+                <tr id="wordRow_{{loop.index0}}">
+                    <td class="left_td" >{{words[0][loop.index0]}}</td>
+                    <td class="right_td">{{words[1][loop.index0]}}</td>
+                </tr>
+                {% endfor %}
+
+                <!--                <meta id="mainWords" data-name="mainWords" data-other="{{words[0]|tojson|safe}}">-->
+                <!--                <meta id="secondWords" data-name="secondWords" data-other="{{words[1]|tojson|safe}}">-->
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="task_word" style="display: none">
+            task
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+            <button class="button_app" id="button_action" onclick="appAction('button_action', '{{words|length}}')">
+                start
+            </button>
+        </td>
+    </tr>
+    <td>
+        <table class="table_inner_app">
+            <tr>
+                <td class="left_td">
+                    <button class="button_app" id="button_word_1" style="display: none"> word 1</button>
+                </td>
+                <td class="right_td">
+                    <button class="button_app" id="button_word_2" style="display: none"> word 2</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">
+                    <button class="button_app" id="button_word_3" style="display: none"> word 3</button>
+                </td>
+                <td class="right_td">
+                    <button class="button_app" id="button_word_4" style="display: none"> word 4</button>
+                </td>
+            </tr>
+        </table>
+    </td>
+
+</table>
+{% endblock %}
+{% block title %}
+NewWords
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block main_windows %}
+<br>
+<h3>Register account to keep your progress</h3> <br>
+<form action="" method="post">
+
+<!--    <label for="email">email:</label>-->
+    <input type="text" id="email" name="email" class="input_app" placeholder="email">
+
+    <br>
+<!--    <label for="password">password:</label>-->
+    <input type="password" id="password" name="password" class="input_app" placeholder="password">
+    <br>
+    <input type="password" id="password_2" name="password_2" class="input_app" placeholder="password">
+    <br>
+    <input type="submit" id="login" name="login" class="button_app" value="register">
+    <br>
+    <br>
+    or
+    <br>
+    <br>
+    google account || apple account
+
+</form>
+{% endblock %}
+{% block title %}
+NewWords: registration
+{% endblock %}
