@@ -17,11 +17,10 @@
 
             // set words to remember (list of words which will be decrease by 1 each round)
 
-            // hide rows with words to remeber
-            for (let i = 0; i < wordsQuantity; i++) {
-                let row = document.getElementById("wordRow_" + i);
-                row.style.display = 'none'
-            }
+            // hide table with words to remeber
+            let row = document.getElementById("table_10_words");
+            row.style.display = 'none'
+
             // show answer buttons
             for (let i = 0; i < 4; i++) {
                 let button = document.getElementById("button_word_" + (i + 1));
@@ -47,57 +46,10 @@
             actionButton.style.display = "none";
             appStatus = "Next round";
         } else if (appStatus === "Next round") {
-//         getSupportActionBar().setTitle(Title_line[1][second_language] + (11 - temp_main_list.size()));
-//
-//         set_initial();
-//         game_round();
-// //                    CentralTextView.setMinWidth(1);
-//         TransitionManager.beginDelayedTransition(tContainer);
-// //                    CentralTextView.setMinWidth(1);
-// //                    CentralTextView.setText(task_word);
-//         Word11.setText(task_word);
-// //                    RunAnimation();
-//
-//
-//         button1.setText(answer_list.get(0));
-//
-//         button2.setText(answer_list.get(1));
-//
-//         button3.setText(answer_list.get(2));
-//
-//         button4.setText(answer_list.get(3));
-//         button5.setVisibility(View.INVISIBLE);
-//         if (temp_main_list.size() == 0) {
-//             GameStatus = "Result";
-//         }
+
 
         } else if (appStatus === "Result") {
-//         task_word = "";
-//         getSupportActionBar().setTitle(Title_line[2][second_language]);
-//         button1.setVisibility(View.GONE);
-//
-//         button2.setVisibility(View.GONE);
-//
-//         button3.setVisibility(View.GONE);
-//
-//         button4.setVisibility(View.GONE);
-//         //button5.setText("OK");
-//         button5.setVisibility(View.VISIBLE);
-//
-// //                    CentralTextView.setText("");
-// //                    LeftTextView.setText("");
-// //                    RightTextView.setText("");
-//         TransitionManager.beginDelayedTransition(tContainer);
-//
-// //                    CentralTextView.setText("Result: " + String.valueOf(correct_answers) + "/10");
-//         Word11.setText(String.valueOf(correct_answers) + "/10");
-//
-//         Intent
-//         intent = new Intent();
-//         intent.putExtra("percentage", String.valueOf(correct_answers * 10));
-//         setResult(RESULT_OK, intent);
-//
-//         GameStatus = "End";
+
 
         }
     }
@@ -156,6 +108,11 @@
         }
 
     }
+
+    // function answer(button_id){
+    //     let answer_button = document.getElementById(button_id)
+    //     if
+    // }
 </script>
 {% endblock %}
 {% block main_windows %}
@@ -165,10 +122,10 @@
         <td>
 
             <table class="table_inner_app" id="table_10_words">
-                {% for word in words %}
+                {% for word in words[0] %}
                 <tr id="wordRow_{{loop.index0}}">
-                    <td class="left_td">{{word[0]}}</td>
-                    <td class="right_td">{{word[1]}}</td>
+                    <td class="left_td" >{{words[0][loop.index0]}}</td>
+                    <td class="right_td">{{words[1][loop.index0]}}</td>
                 </tr>
                 {% endfor %}
 
