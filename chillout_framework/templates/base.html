@@ -45,7 +45,7 @@
                         if (TopicButton.ariaPressed !== 'false'&& TopicButton.ariaPressed !== 'true' || TopicButton.ariaPressed === 'false') {
                             TopicButton.style.backgroundColor = "#7dd0fa";
                             TopicButton.style.color = "#ffffff";
-                            subTopicButton.style.display = 'unset';
+                            subTopicButton.style.display = 'block';
                         } else {
                             subTopicButton.style.display = 'none';
                         }
@@ -114,17 +114,53 @@
 
             {%for topic in topics%}
             {% set topic_number = loop.index0 %}
-            <input id="topicButton_{{topic_number}}" type="button" class="button" value="{{topic[0]}}"
+            <div id="topicButton_{{topic_number}}" type="button" class="button_topic" value="{{topic[0]}}"
                    aria-pressed="false"
                    onclick="showSubTopic('{{topic_number}}', '{{topic[2]|length}}', '{{topics|length}}')"
                    onmouseover="topicMouseOver('{{topic_number}}')"
                    onmouseout="topicMouseOut('{{topic_number}}')"
             >
+                <table class="table_menu">
+                    <tr>
+                        <td class="menu_icon">icon</td>
+                        <td class="menu_text">
+                            <table class="table_inner_menu">
+                                <tr >
+                                    <td class="menu_text_topic">{{topic[0]}}</td>
+                                </tr>
+                                <tr >
+                                    <td class="menu_text_percent">0%</td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+                </table>
+
+            </div>
             {% for subtopic in topic[2] %}
             {% set subtopic_number = loop.index0 %}
-            <input id="subTopicButton_{{topic_number}}_{{subtopic_number}}" type="button" class="button_subtopic"
-                   value="{{subtopic}}"
+            <div id="subTopicButton_{{topic_number}}_{{subtopic_number}}" class="button_subtopic"
                    onclick="location.href='/application/?topic={{topic_number}}&subtopic={{subtopic_number}}'">
+                <table class="table_menu">
+                    <tr>
+                        <td class="menu_icon">icon</td>
+                        <td class="menu_text">
+                            <table class="table_inner_menu">
+                                <tr >
+                                    <td class="menu_text_topic">{{subtopic}}</td>
+                                </tr>
+                                <tr >
+                                    <td class="menu_text_percent">0%</td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+            </div>
             {% endfor %}
 
 

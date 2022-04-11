@@ -40,7 +40,7 @@ class Controllers:
                              ['Topic 9', False,
                               ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
                                'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 10', False,
+                             ['Education & sport', False,
                               ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
                                'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']]
                              ]
