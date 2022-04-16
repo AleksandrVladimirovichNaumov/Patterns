@@ -2,7 +2,7 @@
 import inspect
 from controllers import Controllers
 import views
-from engine.requests import ChillOutRequests
+from newwords.chillout_framework.requests import ChillOutRequests
 from views import NotFound404
 
 

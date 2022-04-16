@@ -385,6 +385,7 @@ body {
     margin-bottom: 2%;
 
 
+
 }
 
 .wrap_app {
@@ -399,6 +400,7 @@ body {
     -20px -20px 60px #ffffff;
     text-align: center;
     padding-bottom: 2%;
+
 
 }
 
@@ -456,22 +458,27 @@ body {
 
 }
 
-.input_app:focus {
+.input_app:focus{
     outline: none !important;
 }
 
 .table_app {
     width: 100%;
-    height: 100%;
+    height: min-content;
     text-align: center;
-    border: black 1px;
+    /*border: 1px solid black ;*/
+    vertical-align: center;
+
+
 }
 
 .table_inner_app {
     width: 100%;
     height: 100%;
     text-align: center;
+        /*border: 1px solid black ;*/
 }
+
 
 /*mobile div*/
 
@@ -479,12 +486,26 @@ body {
     text-align: right;
     padding-right: 2%;
     padding-left: 2%;
+    width: 50%;
+        border: 1px solid black ;
+
 }
 
 .right_td {
     padding-right: 2%;
     padding-left: 2%;
+    width: 50%;
     text-align: left;
+        border: 1px solid black ;
+
+}
+
+.center_cell{
+    vertical-align: center;
+}
+
+.test_tr{
+    border-bottom: 1px solid black;
 }
 
 .mobile {
@@ -528,6 +549,7 @@ body {
     /*transform: translateY(-7px);*/
     transition: all 0.3s ease 0s;
 }
+
 
 
 .footer {

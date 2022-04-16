@@ -1,5 +1,5 @@
 """Module with all views"""
-from engine.templater import Templater
+from chillout_framework.templater import Templater
 
 
 class Index(Templater):

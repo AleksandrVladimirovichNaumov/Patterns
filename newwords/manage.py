@@ -1,8 +1,8 @@
 """module with commands for server"""
 import urllib.parse
 from wsgiref.simple_server import make_server
-from engine.framework import ChillOutFramework
-from engine.settings import HOST, PORT
+from chillout_framework.framework import ChillOutFramework
+from chillout_framework.settings import HOST, PORT
 
 server = ChillOutFramework()
 
@@ -13,7 +13,7 @@ def start():
     :return: -
     """
     with make_server(HOST, PORT, server) as httpd:
-        print(f"ChillOut server is starting")
+        print("ChillOut server is starting")
         # link with ip of a server
         link = urllib.parse.quote(HOST)
         print(f'http://{link}:{PORT}/')
