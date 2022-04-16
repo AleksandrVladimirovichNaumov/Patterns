@@ -1,6 +1,6 @@
 """module with controllers"""
 from temp_storage import LANGUAGES
-from templates.initialization import setting_initialize
+from templates.initialization import USER_SETTING
 
 
 class Controllers:
@@ -79,6 +79,7 @@ class Controllers:
             ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
         ]
 
+
     @staticmethod
     def settings(request):
         """
@@ -86,4 +87,8 @@ class Controllers:
         :param request:
         :return:
         """
-        request['settings'] = setting_initialize()
+        # if request['method']=='GET' and request['method']:
+
+
+        request['settings'] = USER_SETTING.build()
+

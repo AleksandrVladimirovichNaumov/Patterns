@@ -1,6 +1,8 @@
 """Module with all views"""
 from chillout_framework.templater import Templater
+from patterns.engine import Engine
 
+server = Engine()
 
 class Index(Templater):
     """
@@ -17,8 +19,8 @@ class Index(Templater):
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None),
-            settings=request.get('settings', None)
+            languages=server.get_languages(),
+            settings=server.get_settings()
         )
 
 
@@ -34,11 +36,12 @@ class MobileApplication(Templater):
         super().__init__(self.template, self.folder, **kwargs)
 
     def __call__(self, request):
+        print(request)
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None),
-            settings=request.get('settings', None)
+            languages=server.get_languages(),
+            settings=server.get_settings()
         )
 
 
@@ -70,8 +73,8 @@ class Login(Templater):
         return '404 WHAT', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None),
-            settings=request.get('settings', None)
+            languages=server.get_languages(),
+            settings=server.get_settings()
         )
 
 
@@ -86,11 +89,12 @@ class Registration(Templater):
         self.route = '/registration/'
 
     def __call__(self, request):
+        print(request)
         return '404 WHAT', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None),
-            settings=request.get('settings', None)
+            languages=server.get_languages(),
+            settings=server.get_settings()
         )
 
 
@@ -108,7 +112,7 @@ class App(Templater):
         return '404 WHAT', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None),
             words=request.get('words', None),
-            settings=request.get('settings', None)
+            languages=server.get_languages(),
+            settings=server.get_settings()
         )

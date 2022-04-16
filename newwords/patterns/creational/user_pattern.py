@@ -22,7 +22,7 @@ class User:
         self.email = ''
         self.password = ''
 
-    def register(self, email, password, settings):
+    def register(self, email, password, settings, topics_progress, subtopics_progress):
         """
         creating duplicate of a user with registration details
         :param settings: settings of user

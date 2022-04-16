@@ -16,11 +16,3 @@ class SettingBuilder:
     def build(self):
         return self.settings
 
-    # getters
-
-    def get_main_language(self):
-        return self.settings.get('main_language')
-
-    def get_second_language(self):
-        return self.settings.get('second_language')
-

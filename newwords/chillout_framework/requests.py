@@ -54,3 +54,9 @@ class ChillOutRequests:
             post = self.parse_query(post_str)
         print(f'post request(s): {post}')
         return post
+
+
+    # def request_service(self, dict_obj):
+    #     if dict_obj["REQUEST_METHOD"] == 'GET':
+    #         if self.get_get_requests().get('main_language')is not None:
+    #             self

@@ -24,7 +24,7 @@ class ChillOutFramework(ChillOutRequests):
         # class = view except Templator (parent of view)
         # checking that name of class is not 'Templater' because it is not a view
         for class_obj in inspect.getmembers(views, predicate=inspect.isclass):
-            if not class_obj[0] == 'Templater':
+            if not class_obj[0] == 'Templater' and not class_obj[0] == 'Engine':
                 self.routes[class_obj[1]().route] = class_obj[1]()
 
     def __call__(self, environ, start_response):
@@ -46,6 +46,18 @@ class ChillOutFramework(ChillOutRequests):
         # printing get and post if exist
         self.get_get_requests(environ)
         self.get_post_requests(environ)
+        # Получаем все данные запроса
+        method = environ['REQUEST_METHOD']
+
+        self.requests['method'] = method
+
+        if method == 'POST':
+            data = self.get_post_requests(environ)
+            self.requests['post_data'] = data
+
+        if method == 'GET':
+            request_params = self.get_get_requests(environ)
+            self.requests['get_data'] = request_params
 
         # find required controller to maintain frontend request
         for controller in self.frontend:
