@@ -11,7 +11,7 @@ class Engine:
 
     def __init__(self):
         self.user = SessionUser()
-        self.settings = SettingBuilder().set_main_language(LANGUAGES[0]).set_second_language(LANGUAGES[1])
+        self.settings = SettingBuilder().set_main_language(1).set_second_language(2)
 
     def set_settings(self, key, value):
         if key == 'main_language':
@@ -30,20 +30,20 @@ class Engine:
         return LANGUAGES
 
     @staticmethod
-    def get_topics(language):
-        return TOPICS[LANGUAGES.index(language)]
+    def get_topics(language_index):
+        return TOPICS[language_index]
 
     @staticmethod
-    def get_subtopics(language, topic):
-        return SUBTOPICS[LANGUAGES.index(language)][TOPICS.index(topic)]
+    def get_subtopics(language_index, topic):
+        return SUBTOPICS[language_index][TOPICS.index(topic)]
 
     @staticmethod
-    def get_main_words(language, topic, subtopic):
+    def get_main_words():
         # temporary. will be taken from database
         return ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
 
     @staticmethod
-    def get_second_words(language, topic, subtopic):
+    def get_second_words():
         # temporary. will be taken from database
         return ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
 

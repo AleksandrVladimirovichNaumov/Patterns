@@ -4,6 +4,7 @@ from patterns.engine import Engine
 
 server = Engine()
 
+
 class Index(Templater):
     """
     view for index page
@@ -109,10 +110,20 @@ class App(Templater):
         self.route = '/application/'
 
     def __call__(self, request):
+        if request['GET_DATA'].get('main_language'):
+            server.set_settings('main_language', request['GET_DATA']['main_language'])
+
+        if request['GET_DATA'].get('second_language'):
+            server.set_settings('second_language', request['GET_DATA']['second_language'])
+
+
         return '404 WHAT', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            words=request.get('words', None),
+            words=[
+                server.get_main_words(),
+                server.get_second_words()
+            ],
             languages=server.get_languages(),
             settings=server.get_settings()
         )

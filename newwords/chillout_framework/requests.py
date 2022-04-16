@@ -56,7 +56,4 @@ class ChillOutRequests:
         return post
 
 
-    # def request_service(self, dict_obj):
-    #     if dict_obj["REQUEST_METHOD"] == 'GET':
-    #         if self.get_get_requests().get('main_language')is not None:
-    #             self
+
