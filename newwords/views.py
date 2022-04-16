@@ -17,7 +17,8 @@ class Index(Templater):
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -36,7 +37,8 @@ class MobileApplication(Templater):
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -68,7 +70,8 @@ class Login(Templater):
         return '404 WHAT', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -86,7 +89,8 @@ class Registration(Templater):
         return '404 WHAT', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -105,5 +109,6 @@ class App(Templater):
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
-            words=request.get('words', None)
+            words=request.get('words', None),
+            settings=request.get('settings', None)
         )

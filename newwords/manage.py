@@ -6,7 +6,6 @@ from chillout_framework.settings import HOST, PORT
 
 server = ChillOutFramework()
 
-
 def start():
     """
     function to start a server
@@ -19,8 +18,6 @@ def start():
         print(f'http://{link}:{PORT}/')
         # starting a server
         httpd.serve_forever()
-
-
 
 
 if __name__ == '__main__':

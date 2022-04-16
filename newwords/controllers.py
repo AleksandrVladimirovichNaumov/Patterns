@@ -1,4 +1,6 @@
 """module with controllers"""
+from temp_storage import LANGUAGES
+from templates.initialization import setting_initialize
 
 
 class Controllers:
@@ -63,7 +65,7 @@ class Controllers:
         :param request:
         :return:
         """
-        request['languages'] = ['language_1', 'language_2', 'language_3']
+        request['languages'] = LANGUAGES
 
     @staticmethod
     def words(request):
@@ -75,4 +77,13 @@ class Controllers:
         request['words'] = [
             ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10'],
             ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
-            ]
+        ]
+
+    @staticmethod
+    def settings(request):
+        """
+        controller to provide dict with settings
+        :param request:
+        :return:
+        """
+        request['settings'] = setting_initialize()
