@@ -94,7 +94,7 @@
             <!--            <div class="header_menu">-->
             <select class="selector"onchange="window.open(this.options[this.selectedIndex].value,'_top')">
                 {%for language in languages%}
-                {% if loop.index0|string == settings["main_language"] %}
+                {% if loop.index0 == settings["main_language"] %}
                 <option value="?main_language={{loop.index0}}"  selected="selected" >{{language}}</option>
                 {% else %}
                 <option value="?main_language={{loop.index0}}"  >{{language}}</option>
@@ -106,7 +106,7 @@
             </button>
             <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
                 {%for language in languages%}
-                {% if loop.index0|string == settings["second_language"] %}
+                {% if loop.index0 == settings["second_language"] %}
                 <option value="?second_language={{loop.index0}}" selected="selected" >{{language}}</option>
                 {% else %}
                 <option value="?second_language={{loop.index0}}">{{language}}</option>

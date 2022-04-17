@@ -1,6 +1,8 @@
 """module with controllers"""
+from patterns.engine import Engine
 from temp_storage import LANGUAGES
-from templates.initialization import USER_SETTING
+
+server = Engine()
 
 
 class Controllers:
@@ -79,7 +81,6 @@ class Controllers:
             ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
         ]
 
-
     @staticmethod
     def settings(request):
         """
@@ -87,8 +88,11 @@ class Controllers:
         :param request:
         :return:
         """
-        # if request['method']=='GET' and request['method']:
+        if request.get('GET_DATA'):
+            if request.get('GET_DATA').get('main_language'):
+                server.set_settings('main_language', int(request['GET_DATA']['main_language']))
 
+            if request.get('GET_DATA').get('second_language'):
+                server.set_settings('second_language', int(request['GET_DATA']['second_language']))
 
-        request['settings'] = USER_SETTING.build()
-
+        request['settings'] = server.settings.build()

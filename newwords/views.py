@@ -1,8 +1,5 @@
 """Module with all views"""
 from chillout_framework.templater import Templater
-from patterns.engine import Engine
-
-server = Engine()
 
 
 class Index(Templater):
@@ -20,8 +17,8 @@ class Index(Templater):
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=server.get_languages(),
-            settings=server.get_settings()
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -37,12 +34,11 @@ class MobileApplication(Templater):
         super().__init__(self.template, self.folder, **kwargs)
 
     def __call__(self, request):
-        print(request)
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=server.get_languages(),
-            settings=server.get_settings()
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -71,11 +67,11 @@ class Login(Templater):
         self.route = '/login/'
 
     def __call__(self, request):
-        return '404 WHAT', self.render(
+        return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=server.get_languages(),
-            settings=server.get_settings()
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -90,12 +86,11 @@ class Registration(Templater):
         self.route = '/registration/'
 
     def __call__(self, request):
-        print(request)
-        return '404 WHAT', self.render(
+        return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=server.get_languages(),
-            settings=server.get_settings()
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -110,20 +105,10 @@ class App(Templater):
         self.route = '/application/'
 
     def __call__(self, request):
-        if request['GET_DATA'].get('main_language'):
-            server.set_settings('main_language', request['GET_DATA']['main_language'])
-
-        if request['GET_DATA'].get('second_language'):
-            server.set_settings('second_language', request['GET_DATA']['second_language'])
-
-
-        return '404 WHAT', self.render(
+        return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            words=[
-                server.get_main_words(),
-                server.get_second_words()
-            ],
-            languages=server.get_languages(),
-            settings=server.get_settings()
+            words=request.get('words', None),
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
