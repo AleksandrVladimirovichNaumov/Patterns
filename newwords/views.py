@@ -1,5 +1,5 @@
 """Module with all views"""
-from engine.templater import Templater
+from chillout_framework.templater import Templater
 
 
 class Index(Templater):
@@ -17,7 +17,8 @@ class Index(Templater):
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -36,7 +37,8 @@ class MobileApplication(Templater):
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -65,10 +67,11 @@ class Login(Templater):
         self.route = '/login/'
 
     def __call__(self, request):
-        return '404 WHAT', self.render(
+        return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -83,10 +86,11 @@ class Registration(Templater):
         self.route = '/registration/'
 
     def __call__(self, request):
-        return '404 WHAT', self.render(
+        return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
-            languages=request.get('languages', None)
+            languages=request.get('languages', None),
+            settings=request.get('settings', None)
         )
 
 
@@ -101,9 +105,10 @@ class App(Templater):
         self.route = '/application/'
 
     def __call__(self, request):
-        return '404 WHAT', self.render(
+        return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
+            words=request.get('words', None),
             languages=request.get('languages', None),
-            words=request.get('words', None)
+            settings=request.get('settings', None)
         )

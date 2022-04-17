@@ -2,7 +2,7 @@
 import inspect
 from controllers import Controllers
 import views
-from engine.requests import ChillOutRequests
+from newwords.chillout_framework.requests import ChillOutRequests
 from views import NotFound404
 
 
@@ -21,10 +21,10 @@ class ChillOutFramework(ChillOutRequests):
         self.requests = {}
         # make dict {route:view}
         # scanning view.py for all classes
-        # class = view except Templator (parent of view)
+        # class = view except Templator (parent of view) and Engine
         # checking that name of class is not 'Templater' because it is not a view
         for class_obj in inspect.getmembers(views, predicate=inspect.isclass):
-            if not class_obj[0] == 'Templater':
+            if not class_obj[0] == 'Templater' and not class_obj[0] == 'Engine':
                 self.routes[class_obj[1]().route] = class_obj[1]()
 
     def __call__(self, environ, start_response):
@@ -43,9 +43,17 @@ class ChillOutFramework(ChillOutRequests):
         # take a view based on a path
         view = self.routes[path] if path in self.routes else NotFound404()
 
-        # printing get and post if exist
-        self.get_get_requests(environ)
-        self.get_post_requests(environ)
+        # get data from request
+        method = environ['REQUEST_METHOD']
+        self.requests['method'] = method
+
+        if method == 'POST':
+            data = self.get_post_requests(environ)
+            self.requests['POST_DATA'] = data
+
+        if method == 'GET':
+            request_params = self.get_get_requests(environ)
+            self.requests['GET_DATA'] = request_params
 
         # find required controller to maintain frontend request
         for controller in self.frontend:

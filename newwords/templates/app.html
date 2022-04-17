@@ -116,21 +116,25 @@
 </script>
 {% endblock %}
 {% block main_windows %}
-<table class="table_app">
+<table style="height: 100%; width: 100%">
+
+    <tr>
+        <td class="center_cell">
+
+    <table class="table_app">
 
     <tr>
         <td>
 
             <table class="table_inner_app" id="table_10_words">
+
                 {% for word in words[0] %}
-                <tr id="wordRow_{{loop.index0}}">
+                <tr id="wordRow_{{loop.index0}}" class="test_tr">
                     <td class="left_td" >{{words[0][loop.index0]}}</td>
                     <td class="right_td">{{words[1][loop.index0]}}</td>
                 </tr>
                 {% endfor %}
 
-                <!--                <meta id="mainWords" data-name="mainWords" data-other="{{words[0]|tojson|safe}}">-->
-                <!--                <meta id="secondWords" data-name="secondWords" data-other="{{words[1]|tojson|safe}}">-->
             </table>
         </td>
     </tr>
@@ -148,11 +152,12 @@
             </button>
         </td>
     </tr>
+    <tr>
     <td>
         <table class="table_inner_app">
             <tr>
                 <td class="left_td">
-                    <button class="button_app" id="button_word_1" style="display: none"> word 1</button>
+                    <button class="button_app" id="button_word_1" style="display: none; width: "> word 1</button>
                 </td>
                 <td class="right_td">
                     <button class="button_app" id="button_word_2" style="display: none"> word 2</button>
@@ -168,6 +173,15 @@
             </tr>
         </table>
     </td>
+    </tr>
+    <tr class="left_td">
+        <td ></td>
+    </tr>
+        </table>
+
+            </td>
+    </tr>
+
 
 </table>
 {% endblock %}

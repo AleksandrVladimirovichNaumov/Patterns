@@ -25,13 +25,14 @@ body {
 
     font-family: 'math', Chandas;
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows: 1fr 8fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     width: 100%;
     height: 100%;
     background-color: #f0f0f0;
+
 
 }
 
@@ -176,11 +177,11 @@ body {
     align-items: center;
     justify-content: center;
     overflow-y: scroll;
-    direction: rtl;
+    /*direction: rtl;*/
     text-align: center;
     padding-right: 5%;
     padding-left: 5%;
-    scroll-margin-left: 2px;
+    /*scroll-margin-left: 2px;*/
 
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;
@@ -210,22 +211,95 @@ body {
 
 
 .wrap_menu {
-    margin-top: 7%;
+    margin-top: 10%;
+    text-align: center;
 }
+
+.button_topic {
+
+    width: 100%;
+    align-self: center;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    left: 50%;
+    height: min-content;
+    /*font-family: 'math', Chandas;*/
+    font-size: 12px;
+    /*font-style: inherit;*/
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    color: dimgrey;
+    background-color: #fff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.button_topic:hover {
+    margin-top: 25px;
+    background-color: #7dd0fa;
+    box-shadow: 0px 10px 15px rgba(151, 217, 251, 1);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.table_menu {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /*border: black 1px;*/
+
+}
+
+.table_inner_menu {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    /*border: black;*/
+
+
+}
+
+.menu_icon {
+    width: 25%;
+}
+
+.menu_text {
+    width: content-box;
+    text-align: left;
+
+
+}
+
+.menu_text_topic {
+    margin: 0;
+    padding-bottom: 0;
+
+}
+
+.menu_text_percent {
+
+    font-size: 10px;
+}
+
 
 .button {
 
     width: 100%;
     align-self: center;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     left: 50%;
     height: 45px;
     /*font-family: 'math', Chandas;*/
     font-size: 11px;
     /*font-style: inherit;*/
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 1.5px;
     font-weight: 500;
     color: dimgrey;
     background-color: #fff;
@@ -246,15 +320,13 @@ body {
 }
 
 .button_subtopic {
-    width: 90%;
-    margin-bottom: 2%;
+    width: 95%;
+    margin-bottom: 1%;
     left: 50%;
-    height: 45px;
-    /*font-family: 'math', Chandas;*/
+    height: min-content;
     font-size: 11px;
-    /*font-style: inherit;*/
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    /*letter-spacing: 0.5px;*/
     font-weight: 500;
     color: dimgrey;
     background-color: #d8f1fe;
@@ -268,6 +340,7 @@ body {
 }
 
 .button_subtopic:hover {
+    width: 98%;
     /*margin-top: 25px;*/
     background-color: #7dd0fa;
     box-shadow: 0px 10px 15px rgba(151, 217, 251, 1);
@@ -316,7 +389,7 @@ body {
 }
 
 .wrap_app {
-        height: 100%;
+    height: 100%;
 
 
     /*width: 100%;*/
@@ -327,6 +400,7 @@ body {
     -20px -20px 60px #ffffff;
     text-align: center;
     padding-bottom: 2%;
+
 
 }
 
@@ -384,22 +458,27 @@ body {
 
 }
 
-.input_app:focus {
+.input_app:focus{
     outline: none !important;
 }
 
 .table_app {
     width: 100%;
-    height: 100%;
+    height: min-content;
     text-align: center;
-    border: black 1px;
+    /*border: 1px solid black ;*/
+    vertical-align: center;
+
+
 }
 
 .table_inner_app {
     width: 100%;
     height: 100%;
     text-align: center;
+        /*border: 1px solid black ;*/
 }
+
 
 /*mobile div*/
 
@@ -407,12 +486,26 @@ body {
     text-align: right;
     padding-right: 2%;
     padding-left: 2%;
+    width: 50%;
+        border: 1px solid black ;
+
 }
 
 .right_td {
     padding-right: 2%;
     padding-left: 2%;
+    width: 50%;
     text-align: left;
+        border: 1px solid black ;
+
+}
+
+.center_cell{
+    vertical-align: center;
+}
+
+.test_tr{
+    border-bottom: 1px solid black;
 }
 
 .mobile {
@@ -437,6 +530,7 @@ body {
 
     width: 100%;
     height: 50%;
+    margin-top: 2%;
 
     border-radius: 15px;
     background: #ffffff;
@@ -455,6 +549,7 @@ body {
     /*transform: translateY(-7px);*/
     transition: all 0.3s ease 0s;
 }
+
 
 
 .footer {
