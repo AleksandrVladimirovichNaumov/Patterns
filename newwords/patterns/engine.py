@@ -1,8 +1,8 @@
-"""module with main interface"""
+"""module with main interface. Facade pattern was used"""
 from patterns.creational.database_pattern import NewWordsStorage
 from patterns.creational.settings_pattern import SettingBuilder
 from patterns.creational.user_pattern import SessionUser
-from temp_storage import LANGUAGES, TOPICS, SUBTOPICS
+from patterns.structural.decorators_patterns import LoginCheck
 
 
 class Engine:
@@ -15,6 +15,7 @@ class Engine:
         self.settings = SettingBuilder().set_main_language(1).set_second_language(2)
         self.database = NewWordsStorage()
 
+    @LoginCheck
     def set_settings(self, key, value):
         if key == 'main_language':
             self.settings.set_main_language(value)
@@ -27,10 +28,8 @@ class Engine:
     def register_user(self, email, password, settings, topics_progress, subtopics_progress):
         return self.user.register(email, password, settings, topics_progress, subtopics_progress)
 
-
     def get_languages(self):
         return self.database.get_languages()
-
 
     @staticmethod
     def get_main_words():
@@ -45,4 +44,3 @@ class Engine:
     @staticmethod
     def get_content_words(language):
         pass
-

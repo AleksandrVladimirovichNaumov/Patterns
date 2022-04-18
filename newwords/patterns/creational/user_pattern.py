@@ -21,6 +21,7 @@ class User:
         # personal info
         self.email = ''
         self.password = ''
+        self.registered = False
 
     def register(self, email, password, settings, topics_progress, subtopics_progress):
         """
