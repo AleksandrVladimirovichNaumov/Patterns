@@ -2,7 +2,8 @@
 from patterns.creational.database_pattern import NewWordsStorage
 from patterns.creational.settings_pattern import SettingBuilder
 from patterns.creational.user_pattern import SessionUser
-from patterns.structural.decorators_patterns import LoginCheck
+from patterns.structural.decorators_patterns import LoginCheck, Debug
+
 
 
 class Engine:

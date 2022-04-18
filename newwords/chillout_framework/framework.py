@@ -24,7 +24,7 @@ class ChillOutFramework(ChillOutRequests):
         # class = view except Templator (parent of view) and Engine
         # checking that name of class is not 'Templater' because it is not a view
         for class_obj in inspect.getmembers(views, predicate=inspect.isclass):
-            if not class_obj[0] == 'Templater' and not class_obj[0] == 'Engine':
+            if not class_obj[0] == 'Templater' and not class_obj[0] == 'Debug':
                 self.routes[class_obj[1]().route] = class_obj[1]()
 
     def __call__(self, environ, start_response):
@@ -33,7 +33,6 @@ class ChillOutFramework(ChillOutRequests):
         :param start_response: function to response to server
         :return:
         """
-        print(environ)
         # take path of address
         path = environ['PATH_INFO']
 

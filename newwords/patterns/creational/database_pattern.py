@@ -1,7 +1,7 @@
 import os
 
 from sqlalchemy import __version__, create_engine, Table, Column, MetaData, \
-    Integer, String, DateTime, ForeignKey, JSON, Text
+    Integer, String, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import mapper, sessionmaker
 
 from temp_storage import LANGUAGES, TOPICS, SUBTOPICS, WORDS
@@ -306,5 +306,3 @@ if __name__ == '__main__':
         for topic_number in range(10):
             for subtopic_number in range(9):
                 test_db._add_words(language_number, topic_number, subtopic_number, WORDS)
-
-    print(test_db.get_menu(1))
