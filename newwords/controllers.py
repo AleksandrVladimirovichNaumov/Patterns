@@ -17,37 +17,7 @@ class Controllers:
         :param request:
         :return: -
         """
-        request['topics'] = [['Topic 1', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 2', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 3', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 4', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 5', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 6', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 7', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 8', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Topic 9', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']],
-                             ['Education & sport', False,
-                              ['SubTopic 1', 'SubTopic 2', 'SubTopic 3', 'SubTopic 4', 'SubTopic 5', 'SubTopic 6',
-                               'SubTopic 7', 'SubTopic 8', 'SubTopic 9', 'SubTopic 10']]
-                             ]
+        request['topics'] = server.database.get_menu(server.get_settings()['main_language'])
 
     @staticmethod
     def style(request):
@@ -67,7 +37,7 @@ class Controllers:
         :param request:
         :return:
         """
-        request['languages'] = LANGUAGES
+        request['languages'] = server.get_languages()
 
     @staticmethod
     def words(request):

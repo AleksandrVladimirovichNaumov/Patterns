@@ -1,4 +1,5 @@
 """module with main interface"""
+from patterns.creational.database_pattern import NewWordsStorage
 from patterns.creational.settings_pattern import SettingBuilder
 from patterns.creational.user_pattern import SessionUser
 from temp_storage import LANGUAGES, TOPICS, SUBTOPICS
@@ -12,6 +13,7 @@ class Engine:
     def __init__(self):
         self.user = SessionUser()
         self.settings = SettingBuilder().set_main_language(1).set_second_language(2)
+        self.database = NewWordsStorage()
 
     def set_settings(self, key, value):
         if key == 'main_language':
@@ -25,17 +27,10 @@ class Engine:
     def register_user(self, email, password, settings, topics_progress, subtopics_progress):
         return self.user.register(email, password, settings, topics_progress, subtopics_progress)
 
-    @staticmethod
-    def get_languages():
-        return LANGUAGES
 
-    @staticmethod
-    def get_topics(language_index):
-        return TOPICS[language_index]
+    def get_languages(self):
+        return self.database.get_languages()
 
-    @staticmethod
-    def get_subtopics(language_index, topic):
-        return SUBTOPICS[language_index][TOPICS.index(topic)]
 
     @staticmethod
     def get_main_words():
