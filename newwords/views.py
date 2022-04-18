@@ -1,5 +1,7 @@
 """Module with all views"""
 from chillout_framework.templater import Templater
+from patterns.structural.decorators_patterns import Debug
+
 
 
 class Index(Templater):
@@ -13,6 +15,7 @@ class Index(Templater):
         self.route = '/'
         super().__init__(self.template, self.folder, **kwargs)
 
+    @Debug
     def __call__(self, request):
         return '200 OK', self.render(
             topics=request.get('topics', None),
@@ -20,6 +23,7 @@ class Index(Templater):
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
+
 
 
 class MobileApplication(Templater):
@@ -33,6 +37,7 @@ class MobileApplication(Templater):
         self.route = '/mobile_application/'
         super().__init__(self.template, self.folder, **kwargs)
 
+    @Debug
     def __call__(self, request):
         return '200 OK', self.render(
             topics=request.get('topics', None),
@@ -40,6 +45,7 @@ class MobileApplication(Templater):
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
+
 
 
 class NotFound404:
@@ -52,6 +58,7 @@ class NotFound404:
         self.folder = 'templates'
         self.route = '/404/'
 
+    @Debug
     def __call__(self, request):
         return '404 WHAT', '404 PAGE Not Found'
 
@@ -66,6 +73,7 @@ class Login(Templater):
         self.folder = 'templates'
         self.route = '/login/'
 
+    @Debug
     def __call__(self, request):
         return '200 OK', self.render(
             topics=request.get('topics', None),
@@ -73,6 +81,7 @@ class Login(Templater):
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
+
 
 
 class Registration(Templater):
@@ -85,6 +94,7 @@ class Registration(Templater):
         self.folder = 'templates'
         self.route = '/registration/'
 
+    @Debug
     def __call__(self, request):
         return '200 OK', self.render(
             topics=request.get('topics', None),
@@ -92,6 +102,7 @@ class Registration(Templater):
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
+
 
 
 class App(Templater):
@@ -103,7 +114,7 @@ class App(Templater):
         self.template = 'app.html'
         self.folder = 'templates'
         self.route = '/application/'
-
+    @Debug
     def __call__(self, request):
         return '200 OK', self.render(
             topics=request.get('topics', None),

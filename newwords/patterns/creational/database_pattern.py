@@ -1,7 +1,7 @@
 import os
 
 from sqlalchemy import __version__, create_engine, Table, Column, MetaData, \
-    Integer, String, DateTime, ForeignKey, JSON, Text
+    Integer, String, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import mapper, sessionmaker
 
 from temp_storage import LANGUAGES, TOPICS, SUBTOPICS, WORDS
@@ -172,6 +172,38 @@ class NewWordsStorage(metaclass=SingConnection):
         """
         query = self.session.query(self.Users.settings).filter_by(email=email).first()
         return query
+
+    def get_language_id(self, language_number):
+        """
+        get language id by number
+        :param language_number:
+        :return:
+        """
+        language_id = self.session.query(self.Languages.id).filter_by(number=language_number).first().id
+        return language_id
+
+    def get_languages(self):
+        """
+        get all languages from database
+        :return: list of languages
+        """
+        query = self.session.query(self.Languages.language).all()
+        languages_list = [i[0] for i in query]
+        return languages_list
+
+    def get_menu(self, main_language_number):
+        """
+        get all data to build menu
+        :param main_language_number: current language number
+        :return:
+        [[topic1, topic1_progress, [subtopic_1, ...subtopic_n], [subtopic_1_progress, ...subtopic_n_progress]...]
+        """
+        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(self.Topics.language_id==self.get_language_id(main_language_number)).all()
+        subtopics = self.session.query(self.SubTopics.subtopic, self.SubTopics.topic_id).all()
+        menu=[[topic[0], False, [subtopic[0] for subtopic in subtopics if subtopic[1]==topic[1]]] for topic in topics]
+
+        return menu
+
 
     def _add_language(self, language, number):
         """
