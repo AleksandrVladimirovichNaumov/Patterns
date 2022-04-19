@@ -3,7 +3,6 @@ from chillout_framework.templater import Templater
 from patterns.structural.decorators_patterns import Debug
 
 
-
 class Index(Templater):
     """
     view for index page
@@ -25,7 +24,6 @@ class Index(Templater):
         )
 
 
-
 class MobileApplication(Templater):
     """
     view for mobile application page
@@ -45,7 +43,6 @@ class MobileApplication(Templater):
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
-
 
 
 class NotFound404:
@@ -83,7 +80,6 @@ class Login(Templater):
         )
 
 
-
 class Registration(Templater):
     """
     view login page
@@ -96,13 +92,13 @@ class Registration(Templater):
 
     @Debug
     def __call__(self, request):
+
         return '200 OK', self.render(
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
-
 
 
 class App(Templater):
@@ -114,6 +110,7 @@ class App(Templater):
         self.template = 'app.html'
         self.folder = 'templates'
         self.route = '/application/'
+
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(

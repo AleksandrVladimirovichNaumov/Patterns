@@ -66,3 +66,27 @@ class Controllers:
                 server.set_settings('second_language', int(request['GET_DATA']['second_language']))
 
         request['settings'] = server.settings.build()
+
+    @staticmethod
+    def registration(request):
+        """
+        controller to service user registration
+        :param request:
+        :return:
+        """
+        if request.get('POST_DATA'):
+            registration_data = request.get('POST_DATA')
+            try:
+                #email, password, settings, topics_progress, subtopics_progress
+                server.register_user(
+                    server.get_usernames(),
+                    registration_data['email'],
+                    registration_data["password"],
+                    registration_data["password_2"],
+                    server.get_settings(),
+                    server.get_topics_progress(),
+                    server.get_subtopics_progress()
+
+                )
+            except Exception as exception:
+                print(exception)

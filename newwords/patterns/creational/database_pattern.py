@@ -30,12 +30,15 @@ class NewWordsStorage(metaclass=SingConnection):
         table with users
         """
 
-        def __init__(self, email, password, settings, progress):
+        def __init__(self, username, email, password, registered, settings, topic_progress, subtopic_progress):
             self.id = None
+            self.username = username
             self.email = email
             self.password = password
+            self.registered = registered
             self.settings = settings
-            self.progress = progress
+            self.topic_progress = topic_progress
+            self.subtopic_progress = subtopic_progress
 
     class Languages:
         """
@@ -104,11 +107,13 @@ class NewWordsStorage(metaclass=SingConnection):
         self.users_table = Table('Users',
                                  self.metadata,
                                  Column('id', Integer, primary_key=True),
+                                 Column('username', String),
                                  Column('email', String, unique=True),
                                  Column('passwords', String),
                                  Column('registered', DateTime),
                                  Column('settings', JSON),
-                                 Column('progress', JSON)),
+                                 Column('topic_progress', JSON),
+                                 Column('subtopic_progress', JSON))
 
         # table with languages
         self.languages_table = Table('Languages',
@@ -152,7 +157,7 @@ class NewWordsStorage(metaclass=SingConnection):
         # create tables
         self.metadata.create_all(self.engine)
         # connect classes with tables
-        mapper(self.Users, self.users_table[0])
+        mapper(self.Users, self.users_table)
         mapper(self.Languages, self.languages_table[0])
         mapper(self.Topics, self.topics_table[0])
         mapper(self.SubTopics, self.subtopics_table[0])

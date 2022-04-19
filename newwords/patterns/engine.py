@@ -26,11 +26,20 @@ class Engine:
     def get_settings(self):
         return self.settings.build()
 
-    def register_user(self, email, password, settings, topics_progress, subtopics_progress):
-        return self.user.register(email, password, settings, topics_progress, subtopics_progress)
+    def register_user(self, username, email, password_1, password_2, settings, topics_progress, subtopics_progress):
+        return self.user.register(username, email, password_1, password_2, settings, topics_progress, subtopics_progress)
 
     def get_languages(self):
         return self.database.get_languages()
+
+    def get_topics_progress(self):
+        return self.user.topics_progress
+
+    def get_subtopics_progress(self):
+        return self.user.subtopics_progress
+
+    def get_usernmae(self):
+        return self.user.username
 
     @staticmethod
     def get_main_words():
