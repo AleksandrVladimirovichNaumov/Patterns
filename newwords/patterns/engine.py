@@ -42,15 +42,16 @@ class Engine(NewWordsStorage):
         return self.add_user(*self.user.data_to_register(email, password_1))
 
     def login(self, email, password):
-        login_result = self.database_login(email, hashlib.sha256(bytes(password, 'utf-8')+bytes(email, 'utf-8')).hexdigest())
-        if login_result is not False:
-            self.user.username = login_result[0]
-            self.user.email = login_result[1]
-            self.user.settings |= json.loads(login_result[2])
-            self.user.topics_progress = json.loads(login_result[3])
-            self.user.subtopics_progress = json.loads(login_result[4])
-            self.user.registered = True
-            print("login successfully")
+        if not self.user.registered:
+            login_result = self.database_login(email, hashlib.sha256(bytes(password, 'utf-8')+bytes(email, 'utf-8')).hexdigest())
+            if login_result is not False:
+                self.user.username = login_result[0]
+                self.user.email = login_result[1]
+                self.user.settings |= json.loads(login_result[2])
+                self.user.topics_progress = json.loads(login_result[3])
+                self.user.subtopics_progress = json.loads(login_result[4])
+                self.user.registered = True
+                print("login successfully")
 
     def get_topics_progress(self):
         return self.user.topics_progress
@@ -60,6 +61,10 @@ class Engine(NewWordsStorage):
 
     def get_username(self):
         return self.user.username
+
+    def get_user_data(self):
+        return {'is_registered': self.user.registered,
+                'username': self.user.username}
 
     @staticmethod
     def get_main_words():

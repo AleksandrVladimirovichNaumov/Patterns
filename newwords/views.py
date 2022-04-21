@@ -17,6 +17,7 @@ class Index(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
@@ -38,6 +39,7 @@ class MobileApplication(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
@@ -73,6 +75,7 @@ class Login(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
@@ -94,6 +97,7 @@ class Registration(Templater):
     def __call__(self, request):
 
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
@@ -114,9 +118,11 @@ class App(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             words=request.get('words', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
+
         )

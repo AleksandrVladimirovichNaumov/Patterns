@@ -85,12 +85,13 @@ class Controllers:
         #     except Exception as exception:
         #         print(exception)
 
-        if request.get('POST_DATA').get('registration'):
-            registration_data = request.get('POST_DATA')
-            server.register_user(
-                registration_data['email'],
-                registration_data["password"],
-            )
+        if request.get('POST_DATA'):
+            if request.get('POST_DATA').get('registration'):
+                registration_data = request.get('POST_DATA')
+                server.register_user(
+                    registration_data['email'],
+                    registration_data["password"],
+                )
 
     @staticmethod
     def login(request):
@@ -110,9 +111,19 @@ class Controllers:
         #     except Exception as exception:
         #         print(exception)
 
-        if request.get('POST_DATA').get('login'):
-            registration_data = request.get('POST_DATA')
-            server.login(
-                registration_data['email'],
-                registration_data["password"],
-            )
+        if request.get('POST_DATA'):
+            if request.get('POST_DATA').get('login'):
+                registration_data = request.get('POST_DATA')
+                server.login(
+                    registration_data['email'],
+                    registration_data["password"],
+                )
+
+    @staticmethod
+    def get_user_data(request):
+        """
+        controller to provide registration flag of user
+        :param request:
+        :return:
+        """
+        request['user'] = server.get_user_data()
