@@ -3,20 +3,6 @@ import abc
 
 # topic classes
 
-class SettingsGet(metaclass=abc.ABCMeta):
-
-    def get_items(self):
-        pass
-
-
-class SettingsUpdate(metaclass=abc.ABCMeta):
-
-    def update_items(self):
-        pass
-
-
-# topic classes
-
 class TopicGet(metaclass=abc.ABCMeta):
 
     def get_items(self):
@@ -52,7 +38,6 @@ class AbstractFactory(abc.ABC):
         PROGRESS = {
             'topic': TopicFactory,
             'subtopic': SubTopicFactory,
-            'settings': SettingsFactory
         }
         return PROGRESS[name]()
 

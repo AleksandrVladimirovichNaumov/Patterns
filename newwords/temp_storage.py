@@ -30,7 +30,8 @@ SUBTOPICS = [
          "Seasons and weather", "Plants", "Trees", "Flowers"],
         ["Pets", "Domestic animals", "Wild animals #1", "Wild animals #2", "Wild animals #3", "Wild animals #4",
          "Wild animals #5", "Birds #1", "Birds #2", "Insects"],
-        ["Education #1", "Education #2", "Education #3", "Subject of study #1", "Subject of study #2", "Sport #1", "Sport #2",
+        ["Education #1", "Education #2", "Education #3", "Subject of study #1", "Subject of study #2", "Sport #1",
+         "Sport #2",
          "Sport #3", "Sport #4", "Sport #5"],
         ["Jobs #1", "Jobs #2", "Jobs #3", "Jobs #4", "Jobs #5", "Jobs #6", "Jobs #7", "Jobs #8", "Jobs #9", "Jobs #10"]
     ],
@@ -53,7 +54,8 @@ SUBTOPICS = [
          "Jahreszeiten & Wetter", "Pflanzen", "Bäume", " Blumen"],
         ["Haustiere", "Haustiere", "Wilde Tiere #1", "Wilde Tiere #2", "Wilde Tiere #3", "Wilde Tiere #4",
          "Wilde Tiere #5", "Vögel #1", "Vögel #2", "Insekten"],
-        ["Bildung #1", "Bildung #2", "Bildung #3", "Studienfach #1", "Studienfach #2", "Sport #1", "Sport #2", "Sport #3",
+        ["Bildung #1", "Bildung #2", "Bildung #3", "Studienfach #1", "Studienfach #2", "Sport #1", "Sport #2",
+         "Sport #3",
          "Sport # 4", "Sport # 5"],
         ["Beruf #1", "Beruf #2", "Beruf #3", "Beruf #4", "Beruf #5", "Beruf #6", "Beruf #7", "Beruf #8", " Beruf #9",
          "Beruf #10"]
@@ -77,7 +79,8 @@ SUBTOPICS = [
          "Seasons and weather", "Plants", "Trees", "Flowers"],
         ["Pets", "Domestic animals", "Wild animals #1", "Wild animals #2", "Wild animals #3", "Wild animals #4",
          "Wild animals #5", "Birds #1", "Birds #2", "Insects"],
-        ["Education #1", "Education #2", "Education #3", "Subject of study #1", "Subject of study #2", "Sport #1", "Sport #2",
+        ["Education #1", "Education #2", "Education #3", "Subject of study #1", "Subject of study #2", "Sport #1",
+         "Sport #2",
          "Sport #3", "Sport #4", "Sport #5"],
         ["Jobs #1", "Jobs #2", "Jobs #3", "Jobs #4", "Jobs #5", "Jobs #6", "Jobs #7", "Jobs #8", "Jobs #9", "Jobs #10"]
     ],
@@ -100,7 +103,8 @@ SUBTOPICS = [
          "Seasons and weather", "Plants", "Trees", "Flowers"],
         ["Pets", "Domestic animals", "Wild animals #1", "Wild animals #2", "Wild animals #3", "Wild animals #4",
          "Wild animals #5", "Birds #1", "Birds #2", "Insects"],
-        ["Education #1", "Education #2", "Education #3", "Subject of study #1", "Subject of study #2", "Sport #1", "Sport #2",
+        ["Education #1", "Education #2", "Education #3", "Subject of study #1", "Subject of study #2", "Sport #1",
+         "Sport #2",
          "Sport #3", "Sport #4", "Sport #5"],
         ["Jobs #1", "Jobs #2", "Jobs #3", "Jobs #4", "Jobs #5", "Jobs #6", "Jobs #7", "Jobs #8", "Jobs #9", "Jobs #10"]
     ],
@@ -124,7 +128,7 @@ SUBTOPICS = [
         ["Домашние животные", "Домашние животные", "Дикие животные # 1", "Дикие животные # 2", "Дикие животные # 3",
          "Дикие животные # 4", "Дикие животные # 5", "Птицы # 1", "Птицы #2", "Насекомые"],
         ["Образование #1", "Образование #2", "Образование #3", "Предмет исследования #1", "Предмет исследования #2",
-         "Спорт #1", "Спорт #2","Спорт #3", "Спорт # 4 ", " Спорт #5 "],
+         "Спорт #1", "Спорт #2", "Спорт #3", "Спорт # 4 ", " Спорт #5 "],
         ["Профессии  #1", "Профессии  #2", "Профессии  #3", "Профессии  #4", "Профессии  #5", "Профессии  #6",
          "Профессии  #7", "Профессии  #8", " Профессии  #9", "Профессии  #10"]
     ]

@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 
 from sqlalchemy import __version__, create_engine, Table, Column, MetaData, \
@@ -30,12 +31,14 @@ class NewWordsStorage(metaclass=SingConnection):
         table with users
         """
 
-        def __init__(self, username, email, password, registered, settings, topic_progress, subtopic_progress):
+        def __init__(self, username, email, password, registered, last_online, settings, topic_progress,
+                     subtopic_progress):
             self.id = None
             self.username = username
             self.email = email
             self.password = password
             self.registered = registered
+            self.last_online = last_online
             self.settings = settings
             self.topic_progress = topic_progress
             self.subtopic_progress = subtopic_progress
@@ -109,8 +112,9 @@ class NewWordsStorage(metaclass=SingConnection):
                                  Column('id', Integer, primary_key=True),
                                  Column('username', String),
                                  Column('email', String, unique=True),
-                                 Column('passwords', String),
+                                 Column('password', String),
                                  Column('registered', DateTime),
+                                 Column('last_online', DateTime),
                                  Column('settings', JSON),
                                  Column('topic_progress', JSON),
                                  Column('subtopic_progress', JSON))
@@ -196,6 +200,18 @@ class NewWordsStorage(metaclass=SingConnection):
         languages_list = [i[0] for i in query]
         return languages_list
 
+    def get_topics(self, language_number):
+        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(
+            self.Topics.language_id == self.get_language_id(language_number)).all()
+        return topics
+
+    def get_subtopics(self, language_number, topic_qnty):
+        subtopics = self.session.query(self.SubTopics.subtopic, self.SubTopics.topic_id).all()
+        subtopics_list = []
+        for topic_number in range(topic_qnty):
+            subtopics_list.append([subtopic[0] for subtopic in subtopics if subtopic[1] == topic_number])
+        return subtopics_list
+
     def get_menu(self, main_language_number):
         """
         get all data to build menu
@@ -203,12 +219,13 @@ class NewWordsStorage(metaclass=SingConnection):
         :return:
         [[topic1, topic1_progress, [subtopic_1, ...subtopic_n], [subtopic_1_progress, ...subtopic_n_progress]...]
         """
-        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(self.Topics.language_id==self.get_language_id(main_language_number)).all()
+        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(
+            self.Topics.language_id == self.get_language_id(main_language_number)).all()
         subtopics = self.session.query(self.SubTopics.subtopic, self.SubTopics.topic_id).all()
-        menu=[[topic[0], False, [subtopic[0] for subtopic in subtopics if subtopic[1]==topic[1]]] for topic in topics]
+        menu = [[topic[0], False, [subtopic[0] for subtopic in subtopics if subtopic[1] == topic[1]]] for topic in
+                topics]
 
         return menu
-
 
     def _add_language(self, language, number):
         """
@@ -287,6 +304,32 @@ class NewWordsStorage(metaclass=SingConnection):
         except Exception as exception:
             self.session.rollback()
             print(exception)
+
+    def add_user(self, username, email, password, settings, topic_progress, subtopic_progress):
+        """
+        add new user to database
+        """
+        try:
+            new_user = self.Users(username, email, password, datetime.utcnow(), datetime.utcnow(), settings,
+                                  topic_progress,
+                                  subtopic_progress)
+            self.session.add(new_user)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            print(e)
+
+    def database_login(self, email, password):
+        user = self.session.query(self.Users).filter_by(email=email).first()
+        if user.password == password:
+            try:
+                user.last_online = datetime.utcnow()
+                self.session.commit()
+                return user.username, user.email, user.settings, user.topic_progress, user.subtopic_progress
+            except Exception as exception:
+                self.session.rollback()
+                print(exception)
+        return False
 
 
 if __name__ == '__main__':

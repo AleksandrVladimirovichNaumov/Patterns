@@ -17,7 +17,7 @@ class Controllers:
         :param request:
         :return: -
         """
-        request['topics'] = server.database.get_menu(server.get_settings()['main_language'])
+        request['topics'] = server.get_menu(server.get_settings()['main_language'])
 
     @staticmethod
     def style(request):
@@ -60,12 +60,12 @@ class Controllers:
         """
         if request.get('GET_DATA'):
             if request.get('GET_DATA').get('main_language'):
-                server.set_settings('main_language', int(request['GET_DATA']['main_language']))
+                server.set_setting('main_language', int(request['GET_DATA']['main_language']))
 
             if request.get('GET_DATA').get('second_language'):
-                server.set_settings('second_language', int(request['GET_DATA']['second_language']))
+                server.set_setting('second_language', int(request['GET_DATA']['second_language']))
 
-        request['settings'] = server.settings.build()
+        request['settings'] = server.user.settings
 
     @staticmethod
     def registration(request):
@@ -74,19 +74,45 @@ class Controllers:
         :param request:
         :return:
         """
-        if request.get('POST_DATA'):
-            registration_data = request.get('POST_DATA')
-            try:
-                #email, password, settings, topics_progress, subtopics_progress
-                server.register_user(
-                    server.get_usernames(),
-                    registration_data['email'],
-                    registration_data["password"],
-                    registration_data["password_2"],
-                    server.get_settings(),
-                    server.get_topics_progress(),
-                    server.get_subtopics_progress()
+        # if request.get('POST_DATA'):
+        #     registration_data = request.get('POST_DATA')
+        #     try:
+        #         #email, password, settings, topics_progress, subtopics_progress
+        #         server.register_user(
+        #             registration_data['email'],
+        #             registration_data["password"],
+        #         )
+        #     except Exception as exception:
+        #         print(exception)
 
-                )
-            except Exception as exception:
-                print(exception)
+        if request.get('POST_DATA').get('registration'):
+            registration_data = request.get('POST_DATA')
+            server.register_user(
+                registration_data['email'],
+                registration_data["password"],
+            )
+
+    @staticmethod
+    def login(request):
+        """
+        controller to service user registration
+        :param request:
+        :return:
+        """
+        # if request.get('POST_DATA'):
+        #     registration_data = request.get('POST_DATA')
+        #     try:
+        #         #email, password, settings, topics_progress, subtopics_progress
+        #         server.register_user(
+        #             registration_data['email'],
+        #             registration_data["password"],
+        #         )
+        #     except Exception as exception:
+        #         print(exception)
+
+        if request.get('POST_DATA').get('login'):
+            registration_data = request.get('POST_DATA')
+            server.login(
+                registration_data['email'],
+                registration_data["password"],
+            )

@@ -1,36 +1,56 @@
 """module with main interface. Facade pattern was used"""
+import hashlib
+import json
+
 from patterns.creational.database_pattern import NewWordsStorage
 from patterns.creational.settings_pattern import SettingBuilder
-from patterns.creational.user_pattern import SessionUser
+from patterns.creational.user_pattern import User
 from patterns.structural.decorators_patterns import LoginCheck, Debug
 
 
-
-class Engine:
+class Engine(NewWordsStorage):
     """
     main interface of a NewWord project
     """
 
     def __init__(self):
-        self.user = SessionUser()
-        self.settings = SettingBuilder().set_main_language(1).set_second_language(2)
-        self.database = NewWordsStorage()
+        # self.database = NewWordsStorage()
+        super().__init__()
+        # creating session user and set default settings
+        self.user = User().generate_settings(SettingBuilder().set_main_language(1).set_second_language(2).build())
+        # creating languages list
+        self.languages = self.get_languages()
+        # creating topic list
+        self.topics = self.get_topics(self.user.get_main_language())
+        # creating subtopic list
+        self.subtopics = self.get_subtopics(self.user.get_main_language(), len(self.topics))
+        # generating progress for session user
+        self.user \
+            .generate_topic_progress(len(self.languages), len(self.topics)) \
+            .generate_subtopic_progress(len(self.languages), len(self.topics), len(self.subtopics[1]))
+
+    # User methods
 
     @LoginCheck
-    def set_settings(self, key, value):
-        if key == 'main_language':
-            self.settings.set_main_language(value)
-        elif key == 'second_language':
-            self.settings.set_second_language(value)
+    def set_setting(self, key, value):
+        self.user.settings[key] = value
 
     def get_settings(self):
-        return self.settings.build()
+        return self.user.settings
 
-    def register_user(self, username, email, password_1, password_2, settings, topics_progress, subtopics_progress):
-        return self.user.register(username, email, password_1, password_2, settings, topics_progress, subtopics_progress)
+    def register_user(self, email, password_1):
+        return self.add_user(*self.user.data_to_register(email, password_1))
 
-    def get_languages(self):
-        return self.database.get_languages()
+    def login(self, email, password):
+        login_result = self.database_login(email, hashlib.sha256(bytes(password, 'utf-8')+bytes(email, 'utf-8')).hexdigest())
+        if login_result is not False:
+            self.user.username = login_result[0]
+            self.user.email = login_result[1]
+            self.user.settings |= json.loads(login_result[2])
+            self.user.topics_progress = json.loads(login_result[3])
+            self.user.subtopics_progress = json.loads(login_result[4])
+            self.user.registered = True
+            print("login successfully")
 
     def get_topics_progress(self):
         return self.user.topics_progress
@@ -38,7 +58,7 @@ class Engine:
     def get_subtopics_progress(self):
         return self.user.subtopics_progress
 
-    def get_usernmae(self):
+    def get_username(self):
         return self.user.username
 
     @staticmethod
