@@ -18,7 +18,7 @@ class DebugApplication(ChillOutFramework):
 
 
 wsgi_server = ChillOutFramework()
-wsgi_server = DebugApplication()
+# wsgi_server = DebugApplication()
 
 def start():
     """

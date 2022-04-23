@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 import os
 
@@ -321,7 +322,7 @@ class NewWordsStorage(metaclass=SingConnection):
 
     def database_login(self, email, password):
         user = self.session.query(self.Users).filter_by(email=email).first()
-        if user.password == password:
+        if user is not None and user.password == password:
             try:
                 user.last_online = datetime.utcnow()
                 self.session.commit()
@@ -331,6 +332,15 @@ class NewWordsStorage(metaclass=SingConnection):
                 print(exception)
         return False
 
+    def database_set_setting(self, email, settings):
+        user = self.session.query(self.Users).filter_by(email=email).first()
+        try:
+            user.settings = json.dumps(settings)
+            self.session.commit()
+            print("user settings updated in database")
+        except Exception as exception:
+            self.session.rollback()
+            print(exception)
 
 if __name__ == '__main__':
     test_db = NewWordsStorage()

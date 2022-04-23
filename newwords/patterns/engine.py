@@ -34,6 +34,8 @@ class Engine(NewWordsStorage):
     @LoginCheck
     def set_setting(self, key, value):
         self.user.settings[key] = value
+        if self.user.registered:
+            self.database_set_setting(self.user.email, self.user.settings)
 
     def get_settings(self):
         return self.user.settings
@@ -47,7 +49,7 @@ class Engine(NewWordsStorage):
             if login_result is not False:
                 self.user.username = login_result[0]
                 self.user.email = login_result[1]
-                self.user.settings |= json.loads(login_result[2])
+                self.user.settings = json.loads(login_result[2])
                 self.user.topics_progress = json.loads(login_result[3])
                 self.user.subtopics_progress = json.loads(login_result[4])
                 self.user.registered = True

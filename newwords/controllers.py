@@ -86,7 +86,7 @@ class Controllers:
         #         print(exception)
 
         if request.get('POST_DATA'):
-            if request.get('POST_DATA').get('registration'):
+            if request.get('POST_DATA').get('register'):
                 registration_data = request.get('POST_DATA')
                 server.register_user(
                     registration_data['email'],
