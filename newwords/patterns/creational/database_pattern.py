@@ -231,6 +231,22 @@ class NewWordsStorage(metaclass=SingConnection):
 
         return menu
 
+    def get_words(self, language_number, topic_number, subtopic_number):
+        language_id = self.get_language_id(language_number)
+        topic_id = self.session.query(self.Topics.id).filter(self.Topics.language_id == language_id).first().id
+        subtopic_id = self.session.query(self.SubTopics.id).filter(self.SubTopics.topic_id == topic_id).first().id
+        words_query = self.session.query(self.Words).filter(self.Words.subtopic_id == subtopic_id).first()
+        words_list = [words_query.word_1,
+                      words_query.word_2,
+                      words_query.word_3,
+                      words_query.word_4,
+                      words_query.word_5,
+                      words_query.word_6,
+                      words_query.word_7,
+                      words_query.word_8,
+                      words_query.word_9,
+                      words_query.word_10]
+        return words_list
     def _add_language(self, language, number):
         """
         add language to db
@@ -345,6 +361,7 @@ class NewWordsStorage(metaclass=SingConnection):
             self.session.rollback()
             print(exception)
 
+
 if __name__ == '__main__':
     test_db = NewWordsStorage()
     # add languages
@@ -363,7 +380,7 @@ if __name__ == '__main__':
                 test_db._add_subtopic(language_number, topic_number, subtopic, number)
 
     # add words
-    for language_number in range(4):
-        for topic_number in range(10):
-            for subtopic_number in range(9):
+    for language_number in range(5):
+        for topic_number in range(11):
+            for subtopic_number in range(10):
                 test_db._add_words(language_number, topic_number, subtopic_number, WORDS)

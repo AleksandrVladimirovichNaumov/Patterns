@@ -46,10 +46,15 @@ class Controllers:
         :param request:
         :return:
         """
-        request['words'] = [
-            ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10'],
-            ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
-        ]
+
+        if request.get('GET_DATA'):
+            if request.get('GET_DATA').get('topic') and request.get('GET_DATA').get('subtopic'):
+                request['words'] = server.get_app_words(int(request.get('GET_DATA').get('topic')),
+                                                        int(request.get('GET_DATA').get('subtopic')))
+        # request['words'] = [
+        #     ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10'],
+        #     ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
+        # ]
 
     @staticmethod
     def settings(request):

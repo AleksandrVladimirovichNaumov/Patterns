@@ -66,7 +66,9 @@ class Engine(NewWordsStorage):
 
     def get_user_data(self):
         return {'is_registered': self.user.registered,
-                'username': self.user.username}
+                'username': self.user.username,
+                'topic_progress': self.user.topics_progress,
+                'subtopic_progress': self.user.subtopics_progress}
 
     def get_json_topic_progress(self):
         return json.dumps(self.user.topics_progress)
@@ -74,15 +76,9 @@ class Engine(NewWordsStorage):
     def get_json_subtopic_progress(self):
         return json.dumps(self.user.subtopics_progress)
 
-    @staticmethod
-    def get_main_words():
-        # temporary. will be taken from database
-        return ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
-
-    @staticmethod
-    def get_second_words():
-        # temporary. will be taken from database
-        return ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
+    def get_app_words(self, topic_number, subtopic_number):
+        return [self.get_words(self.get_settings()['main_language'], topic_number, subtopic_number),
+                self.get_words(self.get_settings()['second_language'], topic_number, subtopic_number)]
 
     @staticmethod
     def get_content_words(language):
