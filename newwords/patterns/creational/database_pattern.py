@@ -207,10 +207,13 @@ class NewWordsStorage(metaclass=SingConnection):
         return topics
 
     def get_subtopics(self, language_number, topic_qnty):
+        topic_id_query = self.session.query(self.Topics.id).filter(
+            self.Topics.language_id == self.get_language_id(language_number)).all()
+        topic_id_list = [i[0] for i in topic_id_query]
         subtopics = self.session.query(self.SubTopics.subtopic, self.SubTopics.topic_id).all()
         subtopics_list = []
         for topic_number in range(topic_qnty):
-            subtopics_list.append([subtopic[0] for subtopic in subtopics if subtopic[1] == topic_number])
+            subtopics_list.append([subtopic[0] for subtopic in subtopics if subtopic[1] == topic_id_list[topic_number]])
         return subtopics_list
 
     def get_menu(self, main_language_number):

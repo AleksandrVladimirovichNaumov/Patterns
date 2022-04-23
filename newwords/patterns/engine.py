@@ -27,7 +27,7 @@ class Engine(NewWordsStorage):
         # generating progress for session user
         self.user \
             .generate_topic_progress(len(self.languages), len(self.topics)) \
-            .generate_subtopic_progress(len(self.languages), len(self.topics), len(self.subtopics[1]))
+            .generate_subtopic_progress(len(self.languages), len(self.topics), len(self.subtopics[0]))
 
     # User methods
 
@@ -67,6 +67,12 @@ class Engine(NewWordsStorage):
     def get_user_data(self):
         return {'is_registered': self.user.registered,
                 'username': self.user.username}
+
+    def get_json_topic_progress(self):
+        return json.dumps(self.user.topics_progress)
+
+    def get_json_subtopic_progress(self):
+        return json.dumps(self.user.subtopics_progress)
 
     @staticmethod
     def get_main_words():

@@ -127,3 +127,21 @@ class Controllers:
         :return:
         """
         request['user'] = server.get_user_data()
+
+    @staticmethod
+    def get_topic_progress(request):
+        """
+        controller to provide topic progress
+        :param request:
+        :return:
+        """
+        request['topic_progress'] = server.get_json_topic_progress()
+
+    @staticmethod
+    def get_subtopic_progress(request):
+        """
+        controller to provide topic progress
+        :param request:
+        :return:
+        """
+        request['subtopic_progress'] = server.get_json_subtopic_progress()
