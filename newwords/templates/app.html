@@ -10,9 +10,13 @@
     let wordsToRemember = {{words[1] | safe}};
     let appStatus = "TextToRemember";
     let roundNumber = 0;
+    let correct_answers = 0;
 
     function appAction(actionButtonID, wordsQuantity) {
         let actionButton = document.getElementById(actionButtonID)
+            // actionButton.disabled = true;
+            actionButton.style.transition = 'none';
+            actionButton.style.visibility = "hidden";
         if (appStatus === "TextToRemember") {
 
             // set words to remember (list of words which will be decrease by 1 each round)
@@ -43,7 +47,6 @@
 
             }
 
-            actionButton.style.display = "none";
             appStatus = "Next round";
         } else if (appStatus === "Next round") {
 
@@ -63,7 +66,7 @@
         console.log(taskWordIndex);
         taskWord = wordsToRemember[taskWordIndex];
         let taskTd = document.getElementById("task_word");
-        taskTd.textContent = taskWord
+        taskTd.textContent = taskWord;
         console.log(taskWord);
         // deleting task word from array of words to learn
         wordsToRemember.splice(taskWordIndex, 1);
@@ -109,14 +112,42 @@
 
     }
 
-    // function answer(button_id){
-    //     let answer_button = document.getElementById(button_id)
-    //     if
-    // }
+    function answer(button_id){
+        let answer_button = document.getElementById(button_id);
+        if (answer_button.name === 'button_1'){
+            correct_answers +=1;
+            answer_button.style.color = '#009966';
+
+
+        } else{
+            answer_button.style.color = '#ff6666';
+            let correct_button = document.getElementsByName('button_1')[0];
+            correct_button.style.color = '#009966';
+        }
+        let action_button = document.getElementById("button_action");
+        action_button.innerText = 'next'
+        action_button.style.transition = 'all 0.3s ease 0s';
+        action_button.style.visibility = 'unset'
+    }
 </script>
 {% endblock %}
 {% block main_windows %}
 <table style="height: 100%; width: 100%">
+    <tr>
+        <td style="vertical-align: top">
+            <div class="score_wraper">
+            <table class="score_wraper" >
+                <tr >
+                    {% for word in words[0] %}
+                    <td class="center_cell">
+                        <div class="score_cell"></div>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </table>
+            </div>
+        </td>
+    </tr>
 
     <tr>
         <td class="center_cell">
@@ -140,10 +171,36 @@
     </tr>
 
     <tr>
-        <td id="task_word" style="display: none">
+        <td id="task_word" style="display: none; font-size: xx-large; text-transform: uppercase; margin: 20%">
             task
         </td>
     </tr>
+        <tr>
+    <td>
+        <table class="table_inner_app">
+            <tr>
+                <td class="left_td">
+                    <button class="button_app" id="button_word_1" style="display: none; width: 60%"
+                    onclick="answer('button_word_1')"> word 1</button>
+                </td>
+                <td class="right_td">
+                    <button class="button_app" id="button_word_2" style="display: none; width: 60%"
+                    onclick="answer('button_word_2')"> word 2</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">
+                    <button class="button_app" id="button_word_3" style="display: none; width: 60%"
+                    onclick="answer('button_word_3')"> word 3</button>
+                </td>
+                <td class="right_td">
+                    <button class="button_app" id="button_word_4" style="display: none; width: 60%"
+                    onclick="answer('button_word_4')"> word 4</button>
+                </td>
+            </tr>
+        </table>
+    </td>
+        </tr>
     <tr>
         <td>
 
@@ -152,28 +209,8 @@
             </button>
         </td>
     </tr>
-    <tr>
-    <td>
-        <table class="table_inner_app">
-            <tr>
-                <td class="left_td">
-                    <button class="button_app" id="button_word_1" style="display: none; width: "> word 1</button>
-                </td>
-                <td class="right_td">
-                    <button class="button_app" id="button_word_2" style="display: none"> word 2</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="left_td">
-                    <button class="button_app" id="button_word_3" style="display: none"> word 3</button>
-                </td>
-                <td class="right_td">
-                    <button class="button_app" id="button_word_4" style="display: none"> word 4</button>
-                </td>
-            </tr>
-        </table>
-    </td>
-    </tr>
+
+
     <tr class="left_td">
         <td ></td>
     </tr>
