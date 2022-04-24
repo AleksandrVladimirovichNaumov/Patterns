@@ -11,12 +11,16 @@
     let appStatus = "TextToRemember";
     let roundNumber = 0;
     let correct_answers = 0;
+    let word_1_button = document.getElementById('button_word_1');
+    let word_2_button = document.getElementById('button_word_2');
+    let word_3_button = document.getElementById('button_word_3');
+    let word_4_button = document.getElementById('button_word_4');
+    let action_button = document.getElementById("button_action");
+    let taskTd = document.getElementById("task_word");
 
     function appAction(actionButtonID, wordsQuantity) {
-        let actionButton = document.getElementById(actionButtonID)
-            // actionButton.disabled = true;
-            actionButton.style.transition = 'none';
-            actionButton.style.visibility = "hidden";
+            action_button.style.transition = 'none';
+            action_button.style.visibility = "hidden";
         if (appStatus === "TextToRemember") {
 
             // set words to remember (list of words which will be decrease by 1 each round)
@@ -37,8 +41,7 @@
             appRound();
 
             //show task word
-            let tdTaskWord = document.getElementById("task_word");
-            tdTaskWord.style.display = 'unset'
+            taskTd.style.display = 'unset'
 
             // show answer buttons
             for (let i = 0; i < 4; i++) {
@@ -49,10 +52,53 @@
 
             appStatus = "Next round";
         } else if (appStatus === "Next round") {
-
+            appRound()
+            word_1_button.style.transition = 'none';
+            word_2_button.style.transition = 'none';
+            word_3_button.style.transition = 'none';
+            word_4_button.style.transition = 'none';
+            word_1_button.style.color='';
+            word_2_button.style.color='';
+            word_3_button.style.color='';
+            word_4_button.style.color='';
+            word_1_button.disabled = '';
+            word_2_button.disabled = '';
+            word_3_button.disabled = '';
+            word_4_button.disabled = '';
+            word_1_button.style.transition = 'all 0.3s ease 0s';
+            word_2_button.style.transition = 'all 0.3s ease 0s';
+            word_3_button.style.transition = 'all 0.3s ease 0s';
+            word_4_button.style.transition = 'all 0.3s ease 0s';
+            if (roundNumber===10){
+                appStatus = "Result";
+            }
 
         } else if (appStatus === "Result") {
+            fetch('', {
+            method:"POST",
+            body: `result=${correct_answers}`
+            }).then(result => {
+                // do something with the result
+                console.log("Completed with result:", result);
+            }).catch(err => {
+                // if any error occured, then catch it here
+                console.error(err);
+            });
 
+            word_1_button.style.transition = 'none';
+            word_1_button.style.visibility = "hidden";
+            word_2_button.style.transition = 'none';
+            word_2_button.style.visibility = "hidden";
+            word_3_button.style.transition = 'none';
+            word_3_button.style.visibility = "hidden";
+            word_4_button.style.transition = 'none';
+            word_4_button.style.visibility = "hidden";
+
+            action_button.innerText = 'my statistic'
+            action_button.style.transition = 'all 0.3s ease 0s';
+            action_button.style.visibility = 'unset'
+
+            taskTd.innerText = `Your Result: ${correct_answers}/${roundNumber}`
 
         }
     }
@@ -65,23 +111,24 @@
         let taskWordIndex = Math.floor(Math.random() * (wordsToRemember.length));
         console.log(taskWordIndex);
         taskWord = wordsToRemember[taskWordIndex];
-        let taskTd = document.getElementById("task_word");
         taskTd.textContent = taskWord;
         console.log(taskWord);
         // deleting task word from array of words to learn
         wordsToRemember.splice(taskWordIndex, 1);
-        console.log(wordsToRemember);
+        console.log('list to learn after task word selection: ', wordsToRemember);
         // index of correct words
+        console.log('full list to learn: ', secondLangWords)
         let answerIndex = secondLangWords.indexOf(taskWord);
         console.log(answerIndex);
         // getting correct answer word
+        console.log('answer list: ', mainLangWords)
         let answerWord = mainLangWords[answerIndex];
         console.log(answerWord);
         // adding correct answer to array of round answers
         let answers = [];
         answers.push(answerWord);
         // temp array to get incorrect answers
-        let tempMainLangWords = mainLangWords;
+        let tempMainLangWords = mainLangWords.slice();
         // deleting correct answer
         tempMainLangWords.splice(answerIndex, 1);
         // getting 3 random incorrect answers
@@ -113,18 +160,24 @@
     }
 
     function answer(button_id){
+            word_1_button.disabled = 'true';
+            word_2_button.disabled = 'true';
+            word_3_button.disabled = 'true';
+            word_4_button.disabled = 'true';
+
         let answer_button = document.getElementById(button_id);
+        let score_cell = document.getElementById('score_cell_'+roundNumber.toString());
         if (answer_button.name === 'button_1'){
             correct_answers +=1;
             answer_button.style.color = '#009966';
-
+            score_cell.style.background = '#009966'
 
         } else{
             answer_button.style.color = '#ff6666';
+            score_cell.style.background = '#ff6666'
             let correct_button = document.getElementsByName('button_1')[0];
             correct_button.style.color = '#009966';
         }
-        let action_button = document.getElementById("button_action");
         action_button.innerText = 'next'
         action_button.style.transition = 'all 0.3s ease 0s';
         action_button.style.visibility = 'unset'
@@ -135,17 +188,14 @@
 <table style="height: 100%; width: 100%">
     <tr>
         <td style="vertical-align: top">
-            <div class="score_wraper">
-            <table class="score_wraper" >
-                <tr >
+            <table class="score_table">
+                <tr>
                     {% for word in words[0] %}
-                    <td class="center_cell">
-                        <div class="score_cell"></div>
+                    <td class="score_cell" id="score_cell_{{loop.index}}">
                     </td>
                     {% endfor %}
                 </tr>
             </table>
-            </div>
         </td>
     </tr>
 
