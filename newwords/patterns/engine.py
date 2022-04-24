@@ -80,6 +80,12 @@ class Engine(NewWordsStorage):
         return [self.get_words(self.get_settings()['main_language'], topic_number, subtopic_number),
                 self.get_words(self.get_settings()['second_language'], topic_number, subtopic_number)]
 
+    def set_topic_progress(self, language_number, topic_number, value):
+        self.user.topics_progress[language_number][topic_number] = value
+
+    def set_subtopic_progress(self, main_language_number, second_language_number, topic_number, value):
+        self.user.topics_progress[main_language_number][second_language_number][topic_number] = value
+
     @staticmethod
     def get_content_words(language):
         pass

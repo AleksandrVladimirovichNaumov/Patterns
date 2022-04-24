@@ -34,7 +34,9 @@ class User:
         :param topic_qnty:
         :return:
         """
-        self.topics_progress = [[0 for i in range(topic_qnty)] for m in range(language_qnty)]
+        self.topics_progress = [[[0 for i in range(topic_qnty)]
+                                 for m in range(language_qnty)]
+                                for n in range(language_qnty)]
         return self
 
     def generate_subtopic_progress(self, language_qnty, topic_qnty, subtopic_qnty):
@@ -45,8 +47,10 @@ class User:
         :param subtopic_qnty:
         :return:
         """
-        self.subtopics_progress = [[[0 for i in range(subtopic_qnty)] for n in range(topic_qnty)] for m in
-                                   range(language_qnty)]
+        self.subtopics_progress = [[[[0 for i in range(subtopic_qnty)]
+                                     for n in range(topic_qnty)]
+                                    for m in range(language_qnty)]
+                                   for l in range(language_qnty)]
         return self
 
     def generate_settings(self, dict_obj):
@@ -76,11 +80,11 @@ class User:
         # email is a salt for password's hash
         self.password = hashlib.sha256(bytes(password_1, 'utf-8') + bytes(email, 'utf-8')).hexdigest()
         self.registered = True
-        return self.username,\
-               self.email,\
-               self.password,\
-               json.dumps(self.settings),\
-               json.dumps(self.topics_progress),\
+        return self.username, \
+               self.email, \
+               self.password, \
+               json.dumps(self.settings), \
+               json.dumps(self.topics_progress), \
                json.dumps(self.subtopics_progress)
 
     def login(self):
