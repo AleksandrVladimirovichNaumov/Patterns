@@ -89,6 +89,10 @@ class Engine(NewWordsStorage):
     def set_subtopic_progress(self, value):
         self.user.subtopics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic][self.current_subtopic] = value
 
+    def update_topic_progress(self):
+        subtopic_progress = self.user.subtopics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic]
+        self.user.topics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic] = int(sum(subtopic_progress)/len(subtopic_progress))
+
     @staticmethod
     def get_content_words(language):
         pass

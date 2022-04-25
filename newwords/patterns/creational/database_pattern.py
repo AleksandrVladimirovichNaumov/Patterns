@@ -42,7 +42,7 @@ class NewWordsStorage(metaclass=SingConnection):
             self.last_online = last_online
             self.settings = settings
             self.topic_progress = topic_progress
-            self.subtopic_progress = subtopic_progress
+            # self.subtopic_progress = subtopic_progress
 
     class Languages:
         """
@@ -117,8 +117,8 @@ class NewWordsStorage(metaclass=SingConnection):
                                  Column('registered', DateTime),
                                  Column('last_online', DateTime),
                                  Column('settings', JSON),
-                                 Column('topic_progress', JSON),
-                                 Column('subtopic_progress', JSON))
+                                 Column('topic_progress', JSON))
+                                 # Column('subtopic_progress', JSON))
 
         # table with languages
         self.languages_table = Table('Languages',

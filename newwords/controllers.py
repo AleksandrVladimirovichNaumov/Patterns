@@ -154,7 +154,7 @@ class Controllers:
         request['subtopic_progress'] = server.get_json_subtopic_progress()
 
     @staticmethod
-    def update_topic_progress(request):
+    def update_subtopic_progress(request):
         """
         controller to update topic progress
         :param request:
@@ -162,5 +162,6 @@ class Controllers:
         """
         if request.get('POST_DATA'):
             if request.get('POST_DATA').get('result'):
-                topic_result = request.get('POST_DATA').get('result')
-                server.set_topic_progress(topic_result)
+                topic_result = int(request.get('POST_DATA').get('result')) * 10
+                server.set_subtopic_progress(topic_result)
+                server.update_topic_progress()
