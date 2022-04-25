@@ -28,6 +28,9 @@ class Engine(NewWordsStorage):
         self.user \
             .generate_topic_progress(len(self.languages), len(self.topics)) \
             .generate_subtopic_progress(len(self.languages), len(self.topics), len(self.subtopics[0]))
+        # current topic & subtopic to save progress
+        self.current_topic = 0
+        self.current_subtopic = 0
 
     # User methods
 
@@ -80,11 +83,11 @@ class Engine(NewWordsStorage):
         return [self.get_words(self.get_settings()['main_language'], topic_number, subtopic_number),
                 self.get_words(self.get_settings()['second_language'], topic_number, subtopic_number)]
 
-    def set_topic_progress(self, language_number, topic_number, value):
-        self.user.topics_progress[language_number][topic_number] = value
+    def set_topic_progress(self, value):
+        self.user.topics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic] = value
 
-    def set_subtopic_progress(self, main_language_number, second_language_number, topic_number, value):
-        self.user.topics_progress[main_language_number][second_language_number][topic_number] = value
+    def set_subtopic_progress(self, value):
+        self.user.subtopics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic][self.current_subtopic] = value
 
     @staticmethod
     def get_content_words(language):

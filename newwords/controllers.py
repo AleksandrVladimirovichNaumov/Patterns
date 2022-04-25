@@ -51,6 +51,8 @@ class Controllers:
             if request.get('GET_DATA').get('topic') and request.get('GET_DATA').get('subtopic'):
                 request['words'] = server.get_app_words(int(request.get('GET_DATA').get('topic')),
                                                         int(request.get('GET_DATA').get('subtopic')))
+                server.current_topic = int(request.get('GET_DATA').get('topic'))
+                server.current_subtopic = int(request.get('GET_DATA').get('subtopic'))
         # request['words'] = [
         #     ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10'],
         #     ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
@@ -150,3 +152,15 @@ class Controllers:
         :return:
         """
         request['subtopic_progress'] = server.get_json_subtopic_progress()
+
+    @staticmethod
+    def update_topic_progress(request):
+        """
+        controller to update topic progress
+        :param request:
+        :return:
+        """
+        if request.get('POST_DATA'):
+            if request.get('POST_DATA').get('result'):
+                topic_result = request.get('POST_DATA').get('result')
+                server.set_topic_progress(topic_result)
