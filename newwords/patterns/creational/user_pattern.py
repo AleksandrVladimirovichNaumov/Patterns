@@ -39,6 +39,12 @@ class User:
                                 for n in range(language_qnty)]
         return self
 
+    def calculate_topic_progress(self, language_qnty):
+        topics_progress = [[[ int(sum(subtopic_progress)/len(subtopic_progress)) for subtopic_progress in self.subtopics_progress[m][n]]
+                                 for m in range(language_qnty)]
+                                for n in range(language_qnty)]
+        return topics_progress
+
     def generate_subtopic_progress(self, language_qnty, topic_qnty, subtopic_qnty):
         """
         generating initial list with percentage for each subtopic progress
@@ -84,7 +90,6 @@ class User:
                self.email, \
                self.password, \
                json.dumps(self.settings), \
-               json.dumps(self.topics_progress), \
                json.dumps(self.subtopics_progress)
 
     def login(self):

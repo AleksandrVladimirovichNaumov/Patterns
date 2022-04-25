@@ -32,7 +32,7 @@ class NewWordsStorage(metaclass=SingConnection):
         table with users
         """
 
-        def __init__(self, username, email, password, registered, last_online, settings, topic_progress,
+        def __init__(self, username, email, password, registered, last_online, settings,
                      subtopic_progress):
             self.id = None
             self.username = username
@@ -41,8 +41,7 @@ class NewWordsStorage(metaclass=SingConnection):
             self.registered = registered
             self.last_online = last_online
             self.settings = settings
-            self.topic_progress = topic_progress
-            # self.subtopic_progress = subtopic_progress
+            self.subtopic_progress = subtopic_progress
 
     class Languages:
         """
@@ -117,8 +116,7 @@ class NewWordsStorage(metaclass=SingConnection):
                                  Column('registered', DateTime),
                                  Column('last_online', DateTime),
                                  Column('settings', JSON),
-                                 Column('topic_progress', JSON))
-                                 # Column('subtopic_progress', JSON))
+                                 Column('subtopic_progress', JSON))
 
         # table with languages
         self.languages_table = Table('Languages',
@@ -247,6 +245,7 @@ class NewWordsStorage(metaclass=SingConnection):
                       words_query.word_9,
                       words_query.word_10]
         return words_list
+
     def _add_language(self, language, number):
         """
         add language to db
@@ -325,13 +324,12 @@ class NewWordsStorage(metaclass=SingConnection):
             self.session.rollback()
             print(exception)
 
-    def add_user(self, username, email, password, settings, topic_progress, subtopic_progress):
+    def add_user(self, username, email, password, settings, subtopic_progress):
         """
         add new user to database
         """
         try:
             new_user = self.Users(username, email, password, datetime.utcnow(), datetime.utcnow(), settings,
-                                  topic_progress,
                                   subtopic_progress)
             self.session.add(new_user)
             self.session.commit()
@@ -340,23 +338,51 @@ class NewWordsStorage(metaclass=SingConnection):
             print(e)
 
     def database_login(self, email, password):
+        """
+        login method
+        :param email:
+        :param password:
+        :return:
+        """
         user = self.session.query(self.Users).filter_by(email=email).first()
         if user is not None and user.password == password:
             try:
                 user.last_online = datetime.utcnow()
                 self.session.commit()
-                return user.username, user.email, user.settings, user.topic_progress, user.subtopic_progress
+                return user.username, user.email, user.settings, user.subtopic_progress
             except Exception as exception:
                 self.session.rollback()
                 print(exception)
         return False
 
     def database_set_setting(self, email, settings):
+        """
+        saver user settings
+        :param email:
+        :param settings:
+        :return:
+        """
         user = self.session.query(self.Users).filter_by(email=email).first()
         try:
             user.settings = json.dumps(settings)
             self.session.commit()
             print("user settings updated in database")
+        except Exception as exception:
+            self.session.rollback()
+            print(exception)
+
+    def database_set_progress(self, email, progress: list):
+        """
+        save user progress
+        :param email:
+        :param progress:
+        :return:
+        """
+        user = self.session.query(self.Users).filter_by(email=email).first()
+        try:
+            user.subtopic_progress = json.dumps(progress)
+            self.session.commit()
+            print("user progress updated in database")
         except Exception as exception:
             self.session.rollback()
             print(exception)
