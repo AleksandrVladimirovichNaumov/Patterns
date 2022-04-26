@@ -9,6 +9,7 @@
 
 
     <script>
+        let selected_language = ''
 
         function showSubTopic(topic, subTopicQuantity, topicQuantity) {
             try {
@@ -66,14 +67,40 @@
         function topicMouseOut(topic) {
             let TopicButton = document.getElementById('topicButton_' + topic);
             if (TopicButton.ariaPressed !== 'true') {
-                TopicButton.style.backgroundColor = "#ffffff"
-                TopicButton.style.color = "dimgrey"
+                TopicButton.style.backgroundColor = "#ffffff";
+                TopicButton.style.color = "dimgrey";
             }
         }
+        function showDropList(language){
+            selected_language = language;
+            document.getElementById('dropListBackground').style.display = 'unset';
+            document.getElementById('divDropList').style.display = 'unset';
+        }
 
+        function hideDropList(){
+            document.getElementById('dropListBackground').style.display = 'none';
+            document.getElementById('divDropList').style.display = 'none';
+        }
+
+        function openPage(language_number){
+            window.location.href = `/?${selected_language}=${language_number}`;
+        }
     </script>
 </head>
 <body>
+
+<div class="top_div" id="dropListBackground" onclick="hideDropList()">
+
+</div>
+
+    <div class="div_selector" id="divDropList">
+        <div class="wrap_div_selector">
+            {%for language in languages%}
+                <input type="button" id="{{language}}_0" name="{{language}}_0" class="button_selector_option" value="{{language}}"
+                       onclick="openPage('{{loop.index0}}')">
+            {%endfor%}
+        </div>
+    </div>
 
 <div class="parent">
     <div class="header">
@@ -95,30 +122,56 @@
 
         </div>
         <div class="header_center">
-            <H1>NewWords</H1>
-            <!--            <div class="header_menu">-->
-            <select class="selector"onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                {%for language in languages%}
-                {% if loop.index0 == settings["main_language"] %}
-                <option value="?main_language={{loop.index0}}"  selected="selected" >{{language}}</option>
-                {% else %}
-                <option value="?main_language={{loop.index0}}"  >{{language}}</option>
-                {% endif %}
-                {%endfor%}
-            </select>
-            <button class="button_header">
+            <table width="100%">
+                <tr><td>
+            <H1 class="site_name">NewWords</H1>
+                   </td> </tr>
+                <tr><td><table width="100%"><tr><td>
+            <div class="selector" onclick="showDropList('main_language')">
+                <table width="100%">
+                    <tr>
+                        <td class="right_td">{{languages[settings["main_language"]]}}</td>
+                        <td class="left_td">\/</td>
+                    </tr>
+                </table>
+            </div>
+                    </td>
+<!--            <select class="selector"onchange="window.open(this.options[this.selectedIndex].value,'_top')">-->
+<!--                {%for language in languages%}-->
+<!--                {% if loop.index0 == settings["main_language"] %}-->
+<!--                <option value="?main_language={{loop.index0}}"  selected="selected" >{{language}}</option>-->
+<!--                {% else %}-->
+<!--                <option value="?main_language={{loop.index0}}"  >{{language}}</option>-->
+<!--                {% endif %}-->
+<!--                {%endfor%}-->
+<!--            </select>-->
+                    <td>
+            <button class="button_header" >
                 < - >
             </button>
-            <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                {%for language in languages%}
-                {% if loop.index0 == settings["second_language"] %}
-                <option value="?second_language={{loop.index0}}" selected="selected" >{{language}}</option>
-                {% else %}
-                <option value="?second_language={{loop.index0}}">{{language}}</option>
-                {% endif %}
+                        </td>
+<!--            <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">-->
+<!--                {%for language in languages%}-->
+<!--                {% if loop.index0 == settings["second_language"] %}-->
+<!--                <option value="?second_language={{loop.index0}}" selected="selected" >{{language}}</option>-->
+<!--                {% else %}-->
+<!--                <option value="?second_language={{loop.index0}}">{{language}}</option>-->
+<!--                {% endif %}-->
 
-                {%endfor%}
-            </select>
+<!--                {%endfor%}-->
+<!--            </select>-->
+                    <td>
+                        <div class="selector" onclick="showDropList('second_language')">
+                <table width="100%" >
+                    <tr>
+                        <td class="right_td">{{languages[settings["second_language"]]}}</td>
+                        <td class="left_td">\/</td>
+                    </tr>
+                </table>
+            </div>
+                    </td>
+                </tr></table></td></tr>
+                </table>
             <!--            </div>-->
         </div>
     </div>

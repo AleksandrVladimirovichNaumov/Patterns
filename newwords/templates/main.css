@@ -22,6 +22,75 @@ body {
 /*    height: 100%;*/
 /*}*/
 
+.top_div {
+    z-index: 1000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: grey;
+    opacity: 0.7;
+    display: none;
+
+}
+
+.div_selector {
+    z-index: 1001;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: min-content;
+    display: none;
+
+
+}
+
+.wrap_div_selector {
+    height: 100%;
+
+
+    /*width: 100%;*/
+    /*height: 100%;*/
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 2px 2px 10px gray,
+    -2px -2px 10px gray;
+    text-align: center;
+    padding-bottom: 4%;
+    padding-top: 4%;
+
+
+}
+
+.button_selector_option {
+    width: 60%;
+    align-self: center;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: medium;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: dimgray;
+    background-color: lightgrey;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    line-height: 2.5;
+
+
+}
+
+.button_selector_option:hover {
+    background-color: #7dd0fa;
+
+    color: #fff;
+
+    transition: all 0.3s ease 0s;
+}
 
 .parent {
 
@@ -40,6 +109,40 @@ body {
 }
 
 /*header div*/
+
+.site_name {
+
+    text-align: center;
+
+    background: linear-gradient(to right, white 20%, powderblue 30%, white 40%, white 70%,powderblue 80%, white 90%);
+    background-size: 200% auto;
+
+    color: #000;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: shine 20s linear infinite;
+
+}
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 
 .header {
     grid-area: 1 / 1 / 2 / 4;
@@ -94,7 +197,7 @@ body {
     margin-right: 10px;
     margin-left: 10px;
     height: 100%;
-    width: 10%;
+    width: 50px;
     color: #7dd0fa;
     background-color: #fff;
     border-color: white;
@@ -390,7 +493,6 @@ body {
     margin-bottom: 2%;
 
 
-
 }
 
 .wrap_app {
@@ -464,7 +566,7 @@ body {
 
 }
 
-.input_app:focus{
+.input_app:focus {
     outline: none !important;
 }
 
@@ -482,7 +584,7 @@ body {
     width: 100%;
     height: 100%;
     text-align: center;
-        /*border: 1px solid black ;*/
+    /*border: 1px solid black ;*/
 }
 
 
@@ -493,7 +595,7 @@ body {
     padding-right: 2%;
     padding-left: 2%;
     width: 50%;
-        /*border: 1px solid black ;*/
+    /*border: 1px solid black ;*/
 
 }
 
@@ -502,20 +604,20 @@ body {
     padding-left: 2%;
     width: 50%;
     text-align: left;
-        /*border: 1px solid black ;*/
+    /*border: 1px solid black ;*/
 
 }
 
-.center_cell{
+.center_cell {
     vertical-align: center;
 }
 
-.test_tr{
+.test_tr {
     /*border-bottom: 1px solid black;*/
 }
 
 .score_table {
-        width: 80%;
+    width: 80%;
     height: 20px;
     margin-top: 5%;
     margin-left: 10%;
@@ -527,7 +629,7 @@ body {
     /*-10px -10px 60px #ffffff;*/
     text-align: center;
     color: dimgray;
-        border-spacing: 5px;
+    border-spacing: 5px;
 
 }
 
@@ -588,11 +690,10 @@ body {
     transition: all 0.3s ease 0s;
 }
 
-.pass_status{
+.pass_status {
     visibility: hidden;
     transition: all 0.3s ease 0s;
 }
-
 
 
 .footer {
