@@ -85,6 +85,10 @@
         function openPage(language_number){
             window.location.href = `/?${selected_language}=${language_number}`;
         }
+
+        function switchLanguages(main_language, second_language){
+            window.location.href = `/?main_language=${second_language}&second_language=${main_language}`;
+        }
     </script>
 </head>
 <body>
@@ -126,7 +130,7 @@
                 <tr><td>
             <H1 class="site_name">NewWords</H1>
                    </td> </tr>
-                <tr><td><table width="100%"><tr><td>
+                <tr><td><table width="100%"><tr><td width="40%">
             <div class="selector" onclick="showDropList('main_language')">
                 <table width="100%">
                     <tr>
@@ -145,8 +149,8 @@
 <!--                {% endif %}-->
 <!--                {%endfor%}-->
 <!--            </select>-->
-                    <td>
-            <button class="button_header" >
+                    <td width="20%">
+            <button class="button_header" onclick="switchLanguages(`{{settings['main_language']}}`, `{{settings['second_language']}}`)">
                 < - >
             </button>
                         </td>
@@ -160,7 +164,7 @@
 
 <!--                {%endfor%}-->
 <!--            </select>-->
-                    <td>
+                    <td width="40%">
                         <div class="selector" onclick="showDropList('second_language')">
                 <table width="100%" >
                     <tr>
