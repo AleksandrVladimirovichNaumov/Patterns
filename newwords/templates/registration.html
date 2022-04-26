@@ -4,16 +4,14 @@
 <h3>Register account to keep your progress</h3> <br>
 <form action="" method="post">
 
-<!--    <label for="email">email:</label>-->
-    <input type="text" id="email" name="email" class="input_app" placeholder="email">
-
+    <input type="text" id="email" name="email" class="input_app" placeholder="email" oninput="emailCheck()">
     <br>
-<!--    <label for="password">password:</label>-->
-    <input type="password" id="password" name="password" class="input_app" placeholder="password">
+    <input type="password" id="password" name="password" class="input_app" placeholder="password" oninput="passCheck()">
     <br>
-    <input type="password" id="password_2" name="password_2" class="input_app" placeholder="password">
+    <input type="password" id="password_2" name="password_2" class="input_app" placeholder="password" oninput="passCheck()">
     <br>
-    <input type="submit" id="login" name="login" class="button_app" value="register">
+    <p id="passwords_status" class="pass_status">passwords are different</p>
+    <input type="submit" id="register" name="register" class="button_app" value="register" disabled="disabled">
     <br>
     <br>
     or
@@ -25,4 +23,64 @@
 {% endblock %}
 {% block title %}
 NewWords: registration
+{% endblock %}
+{% block script %}
+<script>
+    let passOk = false;
+    let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    function passCheck() {
+        let passInput1 = document.getElementById("password");
+        let passInput2 = document.getElementById("password_2");
+        let passStatus = document.getElementById("passwords_status");
+        let registerButton = document.getElementById("register");
+        let emailInput = document.getElementById("email");
+        if (passInput1.value === passInput2.value) {
+            if (emailInput.value.toLowerCase().match(re)){
+                passStatus.style.color = "green";
+                passStatus.innerText = "passwords are same";
+                passStatus.style.visibility = "visible";
+                passOk = true
+                registerButton.disabled = false;
+            }else{
+                passStatus.style.color = "red";
+                passStatus.innerText = "email is not valid";
+                passStatus.style.visibility = "visible";
+                registerButton.disabled = true;
+                passOk = true
+            }
+
+        } else {
+            passStatus.style.color = "red";
+            passStatus.innerText = "passwords are different";
+            passStatus.style.visibility = "visible";
+            registerButton.disabled = true;
+        }
+    }
+    function emailCheck() {
+        let emailInput = document.getElementById("email");
+        let registerButton = document.getElementById("register");
+        let passStatus = document.getElementById("passwords_status");
+        if (emailInput.value.toLowerCase().match(re)) {
+            if (passOk){
+                passStatus.style.color = "green";
+                passStatus.innerText = "email is valid";
+                passStatus.style.visibility = "visible";
+
+                registerButton.disabled = false;
+            }else{
+                passStatus.style.color = "red";
+                passStatus.innerText = "passwords are different";
+                passStatus.style.visibility = "visible";
+                registerButton.disabled = true;
+
+            }
+
+        } else {
+            passStatus.style.color = "red";
+            passStatus.innerText = "email is not valid";
+            passStatus.style.visibility = "visible";
+            registerButton.disabled = true;
+        }
+    }
+</script>
 {% endblock %}

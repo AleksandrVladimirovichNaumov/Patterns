@@ -1,3 +1,5 @@
+import json
+from datetime import datetime
 import os
 
 from sqlalchemy import __version__, create_engine, Table, Column, MetaData, \
@@ -30,12 +32,17 @@ class NewWordsStorage(metaclass=SingConnection):
         table with users
         """
 
-        def __init__(self, email, password, settings, progress):
+        def __init__(self, username, email, password, registered, last_online, settings, topic_progress,
+                     subtopic_progress):
             self.id = None
+            self.username = username
             self.email = email
             self.password = password
+            self.registered = registered
+            self.last_online = last_online
             self.settings = settings
-            self.progress = progress
+            self.topic_progress = topic_progress
+            self.subtopic_progress = subtopic_progress
 
     class Languages:
         """
@@ -104,11 +111,14 @@ class NewWordsStorage(metaclass=SingConnection):
         self.users_table = Table('Users',
                                  self.metadata,
                                  Column('id', Integer, primary_key=True),
+                                 Column('username', String),
                                  Column('email', String, unique=True),
-                                 Column('passwords', String),
+                                 Column('password', String),
                                  Column('registered', DateTime),
+                                 Column('last_online', DateTime),
                                  Column('settings', JSON),
-                                 Column('progress', JSON)),
+                                 Column('topic_progress', JSON),
+                                 Column('subtopic_progress', JSON))
 
         # table with languages
         self.languages_table = Table('Languages',
@@ -152,7 +162,7 @@ class NewWordsStorage(metaclass=SingConnection):
         # create tables
         self.metadata.create_all(self.engine)
         # connect classes with tables
-        mapper(self.Users, self.users_table[0])
+        mapper(self.Users, self.users_table)
         mapper(self.Languages, self.languages_table[0])
         mapper(self.Topics, self.topics_table[0])
         mapper(self.SubTopics, self.subtopics_table[0])
@@ -191,6 +201,21 @@ class NewWordsStorage(metaclass=SingConnection):
         languages_list = [i[0] for i in query]
         return languages_list
 
+    def get_topics(self, language_number):
+        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(
+            self.Topics.language_id == self.get_language_id(language_number)).all()
+        return topics
+
+    def get_subtopics(self, language_number, topic_qnty):
+        topic_id_query = self.session.query(self.Topics.id).filter(
+            self.Topics.language_id == self.get_language_id(language_number)).all()
+        topic_id_list = [i[0] for i in topic_id_query]
+        subtopics = self.session.query(self.SubTopics.subtopic, self.SubTopics.topic_id).all()
+        subtopics_list = []
+        for topic_number in range(topic_qnty):
+            subtopics_list.append([subtopic[0] for subtopic in subtopics if subtopic[1] == topic_id_list[topic_number]])
+        return subtopics_list
+
     def get_menu(self, main_language_number):
         """
         get all data to build menu
@@ -198,13 +223,30 @@ class NewWordsStorage(metaclass=SingConnection):
         :return:
         [[topic1, topic1_progress, [subtopic_1, ...subtopic_n], [subtopic_1_progress, ...subtopic_n_progress]...]
         """
-        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(self.Topics.language_id==self.get_language_id(main_language_number)).all()
+        topics = self.session.query(self.Topics.topic, self.Topics.id).filter(
+            self.Topics.language_id == self.get_language_id(main_language_number)).all()
         subtopics = self.session.query(self.SubTopics.subtopic, self.SubTopics.topic_id).all()
-        menu=[[topic[0], False, [subtopic[0] for subtopic in subtopics if subtopic[1]==topic[1]]] for topic in topics]
+        menu = [[topic[0], False, [subtopic[0] for subtopic in subtopics if subtopic[1] == topic[1]]] for topic in
+                topics]
 
         return menu
 
-
+    def get_words(self, language_number, topic_number, subtopic_number):
+        language_id = self.get_language_id(language_number)
+        topic_id = self.session.query(self.Topics.id).filter(self.Topics.language_id == language_id).first().id
+        subtopic_id = self.session.query(self.SubTopics.id).filter(self.SubTopics.topic_id == topic_id).first().id
+        words_query = self.session.query(self.Words).filter(self.Words.subtopic_id == subtopic_id).first()
+        words_list = [words_query.word_1,
+                      words_query.word_2,
+                      words_query.word_3,
+                      words_query.word_4,
+                      words_query.word_5,
+                      words_query.word_6,
+                      words_query.word_7,
+                      words_query.word_8,
+                      words_query.word_9,
+                      words_query.word_10]
+        return words_list
     def _add_language(self, language, number):
         """
         add language to db
@@ -283,6 +325,42 @@ class NewWordsStorage(metaclass=SingConnection):
             self.session.rollback()
             print(exception)
 
+    def add_user(self, username, email, password, settings, topic_progress, subtopic_progress):
+        """
+        add new user to database
+        """
+        try:
+            new_user = self.Users(username, email, password, datetime.utcnow(), datetime.utcnow(), settings,
+                                  topic_progress,
+                                  subtopic_progress)
+            self.session.add(new_user)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            print(e)
+
+    def database_login(self, email, password):
+        user = self.session.query(self.Users).filter_by(email=email).first()
+        if user is not None and user.password == password:
+            try:
+                user.last_online = datetime.utcnow()
+                self.session.commit()
+                return user.username, user.email, user.settings, user.topic_progress, user.subtopic_progress
+            except Exception as exception:
+                self.session.rollback()
+                print(exception)
+        return False
+
+    def database_set_setting(self, email, settings):
+        user = self.session.query(self.Users).filter_by(email=email).first()
+        try:
+            user.settings = json.dumps(settings)
+            self.session.commit()
+            print("user settings updated in database")
+        except Exception as exception:
+            self.session.rollback()
+            print(exception)
+
 
 if __name__ == '__main__':
     test_db = NewWordsStorage()
@@ -302,7 +380,7 @@ if __name__ == '__main__':
                 test_db._add_subtopic(language_number, topic_number, subtopic, number)
 
     # add words
-    for language_number in range(4):
-        for topic_number in range(10):
-            for subtopic_number in range(9):
+    for language_number in range(5):
+        for topic_number in range(11):
+            for subtopic_number in range(10):
                 test_db._add_words(language_number, topic_number, subtopic_number, WORDS)

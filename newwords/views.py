@@ -3,7 +3,6 @@ from chillout_framework.templater import Templater
 from patterns.structural.decorators_patterns import Debug
 
 
-
 class Index(Templater):
     """
     view for index page
@@ -18,12 +17,12 @@ class Index(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
-
 
 
 class MobileApplication(Templater):
@@ -40,12 +39,12 @@ class MobileApplication(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
-
 
 
 class NotFound404:
@@ -76,12 +75,12 @@ class Login(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
-
 
 
 class Registration(Templater):
@@ -97,12 +96,12 @@ class Registration(Templater):
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
         )
-
 
 
 class App(Templater):
@@ -114,12 +113,44 @@ class App(Templater):
         self.template = 'app.html'
         self.folder = 'templates'
         self.route = '/application/'
+
     @Debug
     def __call__(self, request):
         return '200 OK', self.render(
+            user=request.get('user', None),
             topics=request.get('topics', None),
             style=request.get('style', None),
             words=request.get('words', None),
             languages=request.get('languages', None),
             settings=request.get('settings', None)
+
         )
+
+
+class TopicProgress:
+    """
+    Api to get progress for topics
+    """
+
+    def __init__(self):
+        self.template = 'base.html'
+        self.folder = 'templates'
+        self.route = '/api/topic/'
+
+    @Debug
+    def __call__(self, request):
+        return '200 OK', request.get('topic_progress', None)
+
+class SubTopicProgress:
+    """
+    Api to get progress for subtopics
+    """
+
+    def __init__(self):
+        self.template = 'base.html'
+        self.folder = 'templates'
+        self.route = '/api/subtopic/'
+
+    @Debug
+    def __call__(self, request):
+        return '200 OK', request.get('subtopic_progress', None)

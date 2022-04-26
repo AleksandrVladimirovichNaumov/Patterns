@@ -1,6 +1,7 @@
-"""module with user pattern based on prototype pattern"""
+"""module with user """
 import copy
 import hashlib
+import json
 
 
 class User:
@@ -12,8 +13,11 @@ class User:
     """
 
     def __init__(self):
+        self.username = 'NewWordsUser'
         # which languages are selected
         self.settings = {}
+        self.topics = []
+        self.subtopics = []
         # topics progress
         self.topics_progress = {}
         # subtopic progress
@@ -23,7 +27,48 @@ class User:
         self.password = ''
         self.registered = False
 
-    def register(self, email, password, settings, topics_progress, subtopics_progress):
+    def generate_topic_progress(self, language_qnty, topic_qnty):
+        """
+        generating initial list with percentage for each topic progress
+        :param language_qnty:
+        :param topic_qnty:
+        :return:
+        """
+        self.topics_progress = [[[0 for i in range(topic_qnty)]
+                                 for m in range(language_qnty)]
+                                for n in range(language_qnty)]
+        return self
+
+    def generate_subtopic_progress(self, language_qnty, topic_qnty, subtopic_qnty):
+        """
+        generating initial list with percentage for each subtopic progress
+        :param language_qnty:
+        :param topic_qnty:
+        :param subtopic_qnty:
+        :return:
+        """
+        self.subtopics_progress = [[[[0 for i in range(subtopic_qnty)]
+                                     for n in range(topic_qnty)]
+                                    for m in range(language_qnty)]
+                                   for l in range(language_qnty)]
+        return self
+
+    def generate_settings(self, dict_obj):
+        """
+        settings stored in dict obj. method adds or replace settings
+        :param dict_obj:
+        :return:
+        """
+        self.settings |= dict_obj
+        return self
+
+    def get_main_language(self):
+        return self.settings['main_language']
+
+    def get_second_language(self):
+        return self.settings['second_language']
+
+    def data_to_register(self, email, password_1):
         """
         creating duplicate of a user with registration details
         :param settings: settings of user
@@ -33,9 +78,14 @@ class User:
         """
         self.email = email
         # email is a salt for password's hash
-        self.password = hashlib.sha256(bytes(password) + bytes(email))
-        self.settings = settings
-        return copy.deepcopy(self)
+        self.password = hashlib.sha256(bytes(password_1, 'utf-8') + bytes(email, 'utf-8')).hexdigest()
+        self.registered = True
+        return self.username, \
+               self.email, \
+               self.password, \
+               json.dumps(self.settings), \
+               json.dumps(self.topics_progress), \
+               json.dumps(self.subtopics_progress)
 
     def login(self):
         """
@@ -43,11 +93,3 @@ class User:
         :return:
         """
         pass
-
-
-class SessionUser(User):
-    """
-    progress for this type of user is kept on a server
-    session user is a prototype for this class
-    """
-    pass
