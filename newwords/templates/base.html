@@ -82,7 +82,7 @@
         <div class="header_right">
             <!--            <form action="" method="post">-->
             {%if not user.is_registered %}
-            <input type="button" id="login" name="login" class="button_header_right" value="login"
+            <input type="button" id="login" name="login" class="button_header_right" value="{{translation[0]}}"
                    onclick="location.href='/login/'">
             {% else %}
                         <input type="button" id="login" name="login" class="button_header_right" value="{{user.username}}"
@@ -195,14 +195,14 @@
         <div class="wrap_mobile">
 
             <form>
-                <input type="button" class="button" value="android app link"
+                <input type="button" class="button" value="{{translation[1]}}"
                        onclick="location.href='/mobile_application/?os=android'">
 
 
             </form>
 
             <form>
-                <input type="button" class="button" value="ios app link"
+                <input type="button" class="button" value="{{translation[2]}}"
                        onclick="location.href='/mobile_application/?os=ios'">
 
 

@@ -1,11 +1,13 @@
 """module with main interface. Facade pattern was used"""
 import hashlib
 import json
+import sqlite3
 
 from patterns.creational.database_pattern import NewWordsStorage
 from patterns.creational.settings_pattern import SettingBuilder
 from patterns.creational.user_pattern import User
 from patterns.structural.decorators_patterns import LoginCheck
+from patterns.architectual.translation_pattern import TranslationMapper
 
 
 class Engine(NewWordsStorage):
@@ -31,6 +33,7 @@ class Engine(NewWordsStorage):
         # current topic & subtopic to save progress
         self.current_topic = 0
         self.current_subtopic = 0
+        # separate pattern to work with page content translation
 
     # User methods
 

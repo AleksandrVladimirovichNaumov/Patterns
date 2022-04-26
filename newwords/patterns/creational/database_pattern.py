@@ -157,6 +157,15 @@ class NewWordsStorage(metaclass=SingConnection):
                                  Column('word_10', String)
                                  ),
 
+        # table with translation
+        self.translation_table = Table('Content_translation',
+                                 self.metadata,
+                                 Column('id', Integer, primary_key=True),
+                                 Column('language_number', ForeignKey('Languages.number')),
+                                 Column('word_number', Integer),
+                                 Column('word', String)
+                                 ),
+
         # create tables
         self.metadata.create_all(self.engine)
         # connect classes with tables

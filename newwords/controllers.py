@@ -1,9 +1,13 @@
 """module with controllers"""
+import sqlite3
+
+from patterns.architectual.translation_pattern import TranslationMapper
 from patterns.engine import Engine
 from temp_storage import LANGUAGES
 
 server = Engine()
-
+connection = sqlite3.connect('patterns/creational/db_newwords.db3')
+translation_mapper = TranslationMapper(connection)
 
 class Controllers:
     """
@@ -73,6 +77,7 @@ class Controllers:
                 server.set_setting('second_language', int(request['GET_DATA']['second_language']))
 
         request['settings'] = server.user.settings
+        request['translation'] = translation_mapper.get_words_list(server.user.get_main_language())
 
     @staticmethod
     def registration(request):
@@ -165,6 +170,3 @@ class Controllers:
                 topic_result = int(request.get('POST_DATA').get('result')) * 10
                 server.set_subtopic_progress(topic_result)
                 server.update_topic_progress()
-
-
-

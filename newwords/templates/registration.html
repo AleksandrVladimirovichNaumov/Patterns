@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block main_windows %}
 <br>
-<h3>Register account to keep your progress</h3> <br>
+<h3>{{translation[7]}}</h3> <br>
 <form action="" method="post">
 
     <input type="text" id="email" name="email" class="input_app" placeholder="email" oninput="emailCheck()">
@@ -14,7 +14,7 @@
     <input type="submit" id="register" name="register" class="button_app" value="register" disabled="disabled">
     <br>
     <br>
-    or
+    {{translation[4]}}
     <br>
     <br>
     google account || apple account

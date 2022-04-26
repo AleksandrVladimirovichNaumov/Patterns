@@ -1,5 +1,4 @@
 """module with user """
-import copy
 import hashlib
 import json
 

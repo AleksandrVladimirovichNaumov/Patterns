@@ -135,3 +135,21 @@ SUBTOPICS = [
 ]
 
 WORDS = ['word 1', 'word 2', 'word 3', 'word 4', 'word 5', 'word 6', 'word 7', 'word 8', 'word 9', 'word 10']
+
+TRANSLATION = [
+    ['sign in', 'Einloggen', 'Iniciar sesión', 'connectez-vous', 'войти'],
+    ['android application', 'Android-Anwendung', 'aplicación para android', 'application Android', 'Android приложение'],
+    ['IOS application', 'IOS-Anwendung', 'aplicación para iOS', 'Application IOS', 'IOS приложение'],
+    ['Login to keep your progress', 'Melden Sie sich an, um Ihren Fortschritt zu speichern', 'Inicia sesión para guardar tu progreso', 'Connectez-vous pour enregistrer votre progression', 'Войдите, чтобы сохранить свой прогресс'],
+    ['or', 'oder', 'o', 'ou alors', 'или'],
+    ['Do not have an account? ', 'Haben Sie kein Konto?', '¿No tiene una cuenta?', "Vous n'avez pas de compte?", 'Нет аккаунта?'],
+    ['register', 'registrieren', 'registrar', 'enregistrer', 'регистрация'],
+    ['Create an account to save your progress', 'Erstellen Sie ein Konto, um Ihren Fortschritt zu speichern', 'Crea una cuenta para guardar tu progreso', 'Créez un compte pour enregistrer votre progression', 'Создайте аккаунт, чтобы сохранить свой прогресс'],
+    ['passwords are different', 'Passwörter sind anders', 'las contraseñas son diferentes', 'les mots de passe sont différents', 'пароли различаются'],
+    ['email is not valid', 'Email ist ungültig', 'El correo no es válido', "L'email n'est pas valide", 'email не действителен'],
+    ['download', 'Download', 'descargar', 'Télécharger', 'скачать'],
+    ['More topics to learn', 'Weitere Themen zum Lernen', 'Más temas para aprender', 'Plus de sujets à apprendre', 'Больше тем для изучения'],
+    ['No advertisement', 'Keine Werbung', 'sin publicidad', 'Pas de publicité', 'без рекламы'],
+    ['start', 'beginnen', 'comenzar', 'commencer', 'начать'],
+    ['next word', 'nächstes Wort', 'siguiente palabra', 'mot suivant', 'следующее слово'],
+]
