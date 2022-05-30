@@ -1,11 +1,13 @@
 """module with main interface. Facade pattern was used"""
 import hashlib
 import json
+import sqlite3
 
 from patterns.creational.database_pattern import NewWordsStorage
 from patterns.creational.settings_pattern import SettingBuilder
 from patterns.creational.user_pattern import User
-from patterns.structural.decorators_patterns import LoginCheck, Debug
+from patterns.structural.decorators_patterns import LoginCheck
+from patterns.architectual.translation_pattern import TranslationMapper
 
 
 class Engine(NewWordsStorage):
@@ -31,6 +33,7 @@ class Engine(NewWordsStorage):
         # current topic & subtopic to save progress
         self.current_topic = 0
         self.current_subtopic = 0
+        # separate pattern to work with page content translation
 
     # User methods
 
@@ -53,8 +56,8 @@ class Engine(NewWordsStorage):
                 self.user.username = login_result[0]
                 self.user.email = login_result[1]
                 self.user.settings = json.loads(login_result[2])
-                self.user.topics_progress = json.loads(login_result[3])
-                self.user.subtopics_progress = json.loads(login_result[4])
+                self.user.subtopics_progress = json.loads(login_result[3])
+                self.user.topics_progress = self.user.calculate_topic_progress(len(self.languages))
                 self.user.registered = True
                 print("login successfully")
 
@@ -88,6 +91,14 @@ class Engine(NewWordsStorage):
 
     def set_subtopic_progress(self, value):
         self.user.subtopics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic][self.current_subtopic] = value
+        if self.user.registered:
+            self.database_set_progress(self.user.email, self.user.subtopics_progress)
+
+
+    def update_topic_progress(self):
+        subtopic_progress = self.user.subtopics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic]
+        self.user.topics_progress[self.user.get_main_language()][self.user.get_second_language()][self.current_topic] = int(sum(subtopic_progress)/len(subtopic_progress))
+
 
     @staticmethod
     def get_content_words(language):

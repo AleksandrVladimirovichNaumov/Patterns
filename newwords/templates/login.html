@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block main_windows %}
 <br>
-<h3>Login to keep your progress</h3> <br>
+<h3>{{translation[3]}}</h3> <br>
 <form action="" method="post">
 
 <!--    <label for="email">email:</label>-->
@@ -11,19 +11,19 @@
 <!--    <label for="password">password:</label>-->
     <input type="password" id="password" name="password" class="input_app" placeholder="password">
     <br>
-    <input type="submit" id="login" name="login" class="button_app" value="login" onclick="location.href='/'">
+    <input type="submit" id="login" name="login" class="button_app" value="{{translation[0]}}" onclick="location.href='/'">
     <br>
     <br>
-    or
+    {{translation[4]}}
     <br>
     <br>
     google account || apple account
     <br>
     <br>
     <br>
-    Do not have an account?
+    {{translation[5]}}
     <br>
-    <input type="button" class="button_app" value="register" onclick="location.href='/registration/'">
+    <input type="button" class="button_app" value="{{translation[6]}}" onclick="location.href='/registration/'">
 </form>
 {% endblock %}
 {% block title %}

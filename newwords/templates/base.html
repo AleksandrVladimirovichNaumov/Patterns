@@ -9,6 +9,7 @@
 
 
     <script>
+        let selected_language = ''
 
         function showSubTopic(topic, subTopicQuantity, topicQuantity) {
             try {
@@ -66,14 +67,44 @@
         function topicMouseOut(topic) {
             let TopicButton = document.getElementById('topicButton_' + topic);
             if (TopicButton.ariaPressed !== 'true') {
-                TopicButton.style.backgroundColor = "#ffffff"
-                TopicButton.style.color = "dimgrey"
+                TopicButton.style.backgroundColor = "#ffffff";
+                TopicButton.style.color = "dimgrey";
             }
         }
+        function showDropList(language){
+            selected_language = language;
+            document.getElementById('dropListBackground').style.display = 'unset';
+            document.getElementById('divDropList').style.display = 'unset';
+        }
 
+        function hideDropList(){
+            document.getElementById('dropListBackground').style.display = 'none';
+            document.getElementById('divDropList').style.display = 'none';
+        }
+
+        function openPage(language_number){
+            window.location.href = `/?${selected_language}=${language_number}`;
+        }
+
+        function switchLanguages(main_language, second_language){
+            window.location.href = `/?main_language=${second_language}&second_language=${main_language}`;
+        }
     </script>
 </head>
 <body>
+
+<div class="top_div" id="dropListBackground" onclick="hideDropList()">
+
+</div>
+
+    <div class="div_selector" id="divDropList">
+        <div class="wrap_div_selector">
+            {%for language in languages%}
+                <input type="button" id="{{language}}_0" name="{{language}}_0" class="button_selector_option" value="{{language}}"
+                       onclick="openPage('{{loop.index0}}')">
+            {%endfor%}
+        </div>
+    </div>
 
 <div class="parent">
     <div class="header">
@@ -82,7 +113,7 @@
         <div class="header_right">
             <!--            <form action="" method="post">-->
             {%if not user.is_registered %}
-            <input type="button" id="login" name="login" class="button_header_right" value="login"
+            <input type="button" id="login" name="login" class="button_header_right" value="{{translation[0]}}"
                    onclick="location.href='/login/'">
             {% else %}
                         <input type="button" id="login" name="login" class="button_header_right" value="{{user.username}}"
@@ -95,30 +126,56 @@
 
         </div>
         <div class="header_center">
-            <H1>NewWords</H1>
-            <!--            <div class="header_menu">-->
-            <select class="selector"onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                {%for language in languages%}
-                {% if loop.index0 == settings["main_language"] %}
-                <option value="?main_language={{loop.index0}}"  selected="selected" >{{language}}</option>
-                {% else %}
-                <option value="?main_language={{loop.index0}}"  >{{language}}</option>
-                {% endif %}
-                {%endfor%}
-            </select>
-            <button class="button_header">
+            <table width="100%">
+                <tr><td>
+            <H1 class="site_name">NewWords</H1>
+                   </td> </tr>
+                <tr><td><table width="100%"><tr><td width="40%">
+            <div class="selector" onclick="showDropList('main_language')">
+                <table width="100%">
+                    <tr>
+                        <td class="right_td">{{languages[settings["main_language"]]}}</td>
+                        <td class="left_td">\/</td>
+                    </tr>
+                </table>
+            </div>
+                    </td>
+<!--            <select class="selector"onchange="window.open(this.options[this.selectedIndex].value,'_top')">-->
+<!--                {%for language in languages%}-->
+<!--                {% if loop.index0 == settings["main_language"] %}-->
+<!--                <option value="?main_language={{loop.index0}}"  selected="selected" >{{language}}</option>-->
+<!--                {% else %}-->
+<!--                <option value="?main_language={{loop.index0}}"  >{{language}}</option>-->
+<!--                {% endif %}-->
+<!--                {%endfor%}-->
+<!--            </select>-->
+                    <td width="20%">
+            <button class="button_header" onclick="switchLanguages(`{{settings['main_language']}}`, `{{settings['second_language']}}`)">
                 < - >
             </button>
-            <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                {%for language in languages%}
-                {% if loop.index0 == settings["second_language"] %}
-                <option value="?second_language={{loop.index0}}" selected="selected" >{{language}}</option>
-                {% else %}
-                <option value="?second_language={{loop.index0}}">{{language}}</option>
-                {% endif %}
+                        </td>
+<!--            <select class="selector" onchange="window.open(this.options[this.selectedIndex].value,'_top')">-->
+<!--                {%for language in languages%}-->
+<!--                {% if loop.index0 == settings["second_language"] %}-->
+<!--                <option value="?second_language={{loop.index0}}" selected="selected" >{{language}}</option>-->
+<!--                {% else %}-->
+<!--                <option value="?second_language={{loop.index0}}">{{language}}</option>-->
+<!--                {% endif %}-->
 
-                {%endfor%}
-            </select>
+<!--                {%endfor%}-->
+<!--            </select>-->
+                    <td width="40%">
+                        <div class="selector" onclick="showDropList('second_language')">
+                <table width="100%" >
+                    <tr>
+                        <td class="right_td">{{languages[settings["second_language"]]}}</td>
+                        <td class="left_td">\/</td>
+                    </tr>
+                </table>
+            </div>
+                    </td>
+                </tr></table></td></tr>
+                </table>
             <!--            </div>-->
         </div>
     </div>
@@ -195,14 +252,14 @@
         <div class="wrap_mobile">
 
             <form>
-                <input type="button" class="button" value="android app link"
+                <input type="button" class="button" value="{{translation[1]}}"
                        onclick="location.href='/mobile_application/?os=android'">
 
 
             </form>
 
             <form>
-                <input type="button" class="button" value="ios app link"
+                <input type="button" class="button" value="{{translation[2]}}"
                        onclick="location.href='/mobile_application/?os=ios'">
 
 
